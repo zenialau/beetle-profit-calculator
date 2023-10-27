@@ -8,7 +8,7 @@ import src.main.model.inventory.MountedDisplay;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testMountedDisplay {
+public class MountedDisplayTest {
     MountedDisplay testDisplay;
     Beetle testBeetle;
     Container testContainer;

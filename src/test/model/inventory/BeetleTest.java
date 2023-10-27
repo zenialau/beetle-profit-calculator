@@ -6,7 +6,7 @@ import src.main.model.inventory.Beetle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testBeetle {
+public class BeetleTest {
     Beetle testBeetle;
 
     @BeforeEach

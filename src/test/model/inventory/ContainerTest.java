@@ -6,7 +6,7 @@ import src.main.model.inventory.Container;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testContainer {
+public class ContainerTest {
     Container testContainer;
 
     @BeforeEach
