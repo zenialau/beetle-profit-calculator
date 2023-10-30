@@ -1,23 +1,23 @@
 package src.test.model.inventory;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.model.inventory.Beetle;
+import src.test.model.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BeetleTest {
-    Beetle testBeetle;
-
-    @BeforeEach
-    void runBefore() {
-        testBeetle = new Beetle("Megasoma gyas", 100, 95);
-    }
+public class BeetleTest extends ModelTest {
 
     @Test
     void testConstructor() {
+        assertEquals(50, testBeetle.getCost());
+        assertEquals(100, testBeetle.getSellingPrice());
         assertEquals("Megasoma gyas", testBeetle.getLatinName());
-        assertEquals(100, testBeetle.getCost());
         assertEquals(95, testBeetle.getSize());
+    }
+
+    @Test
+    void testSetPrice() {
+        testBeetle.setSellingPrice(120.50);
+        assertEquals(120.50, testBeetle.getSellingPrice());
     }
 }

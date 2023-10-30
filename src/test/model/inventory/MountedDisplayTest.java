@@ -1,30 +1,23 @@
 package src.test.model.inventory;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.model.inventory.Beetle;
-import src.main.model.inventory.Container;
-import src.main.model.inventory.MountedDisplay;
+import src.test.model.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MountedDisplayTest {
-    MountedDisplay testDisplay;
-    Beetle testBeetle;
-    Container testContainer;
-
-    @BeforeEach
-    void runBefore() {
-        testBeetle = new Beetle("Megasoma gyas", 100, 95);
-        testContainer = new Container("frame", "small", 10);
-        testDisplay = new MountedDisplay(testBeetle, testContainer, 60, 200);
-    }
+public class MountedDisplayTest extends ModelTest {
 
     @Test
     void testConstructor() {
         assertEquals(testBeetle, testDisplay.getBeetle());
         assertEquals(testContainer, testDisplay.getContainer());
         assertEquals(60, testDisplay.getTimeSpent());
-        assertEquals(200, testDisplay.getSellingPrice());
+        assertEquals(150, testDisplay.getSellingPrice());
+    }
+
+    @Test
+    void testSetPrice() {
+        testDisplay.setSellingPrice(150);
+        assertEquals(150, testDisplay.getSellingPrice());
     }
 }

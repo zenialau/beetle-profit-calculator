@@ -1,7 +1,5 @@
 package src.main.model.company;
 
-import src.main.model.inventory.Purchase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import java.util.List;
 public class Buyer {
     private String name;
     private String igAccount;
-    //private ListOfPurchases listOfPurchases;
     private List<Purchase> listOfPurchases;
 
     // Constructs a buyer with their name, Instagram account, and an empty list of purchases
@@ -20,25 +17,25 @@ public class Buyer {
         this.listOfPurchases = new ArrayList<>();
     }
 
-    // MODIFIES: this
-    // EFFECTS: add a purchase to the listOfPurchases
-    public void addPurchase(Purchase purchase) {
-        listOfPurchases.add(purchase);
-    }
-
-    // EFFECTS: return the number of times of purchases made (1 purchase could contain several items)
-    public int getNumPurchases() {
-        return listOfPurchases.size();
-    }
-
-    // EFFECTS: return the total amount (in dollars) of purchases made
-    public double getAmountPurchased() {
-        double amount = 0;
-        for (Purchase purchase: listOfPurchases) {
-            amount += purchase.getCheckoutAmount();
-        }
-        return amount;
-    }
+//    // MODIFIES: this
+//    // EFFECTS: add a purchase to the listOfPurchases
+//    public void addPurchase(Purchase purchase) {
+//        listOfPurchases.add(purchase);
+//    }
+//
+//    // EFFECTS: return the number of times of purchases made (1 purchase could contain several items)
+//    public int getNumPurchases() {
+//        return listOfPurchases.size();
+//    }
+//
+//    // EFFECTS: return the total amount (in dollars) of purchases made
+//    public double getTotalAmountPurchased() {
+//        double amount = 0;
+//        for (Purchase purchase: listOfPurchases) {
+//            amount += purchase.getCheckoutAmount();
+//        }
+//        return amount;
+//    }
 
     public String getName() {
         return name;
@@ -48,9 +45,9 @@ public class Buyer {
         return igAccount;
     }
 
-    public List<Purchase> getListOfPurchases() {
-        return listOfPurchases;
-    }
+//    public List<Purchase> getListOfPurchases() {
+//        return listOfPurchases;
+//    }
 
 
 }

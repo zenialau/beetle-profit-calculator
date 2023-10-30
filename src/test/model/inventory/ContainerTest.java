@@ -1,18 +1,11 @@
 package src.test.model.inventory;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.model.inventory.Container;
+import src.test.model.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ContainerTest {
-    Container testContainer;
-
-    @BeforeEach
-    void runBefore() {
-        testContainer = new Container("frame", "small", 10);
-    }
+public class ContainerTest extends ModelTest {
 
     @Test
     void testConstructor() {
