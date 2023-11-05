@@ -14,22 +14,7 @@ public class BuyerTest extends ModelTest {
         //assertTrue(testBuyer.getListOfPurchases().isEmpty());
     }
 
-//    @Test
-//    void testAddPurchaseOnce() {
-//        testBuyer.addPurchase(testPurchase);
-//        assertEquals(1, testBuyer.getNumPurchases());
-//        List<Purchase> purchaseList = testBuyer.getListOfPurchases();
-//        assertEquals(testPurchase, purchaseList.get(0));
-//    }
-//    @Test
-//    void testAddPurchaseMultiple() {
-//        testBuyer.addPurchase(testPurchase);
-//        testBuyer.addPurchase(testPurchase);
-//        assertEquals(2, testBuyer.getNumPurchases());
-//        List<Purchase> purchaseList = testBuyer.getListOfPurchases();
-//        assertEquals(testPurchase, purchaseList.get(0));
-//        assertEquals(testPurchase, purchaseList.get(1));
-//    }
+
 //
 //    @Test
 //    void testGetAmountPurchasedEmpty() {

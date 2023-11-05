@@ -34,4 +34,12 @@ public class PurchaseList {
     public List<Purchase> getPurchaseList() {
         return purchaseList;
     }
+
+    public boolean isEmpty() {
+        return purchaseList.isEmpty();
+    }
+
+    public Purchase get(int index) {
+        return purchaseList.get(index);
+    }
 }
