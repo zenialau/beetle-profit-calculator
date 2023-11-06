@@ -1,12 +1,14 @@
 package src.main.model.company;
 
 import src.main.model.exception.DuplicateBuyerException;
+import src.main.model.inventory.Purchase;
+import src.main.model.inventory.PurchaseList;
 
 import java.util.HashMap;
 import java.util.Map;
 
 // Represents a Trader(buyer/supplier) map with key: Trader and value: PurchaseList
-public abstract class TradersMap {
+public class TradersMap {
     protected Map<Trader, PurchaseList> tradersMap;
 
     // EFFECTS: constructs an empty map of traders
@@ -61,7 +63,7 @@ public abstract class TradersMap {
         return tradersMap.get(trader);
     }
 
-    public Map getTradersAndPurchases() {
+    public Map<Trader, PurchaseList> getTradersAndPurchases() {
         return tradersMap;
     }
 

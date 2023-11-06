@@ -1,4 +1,4 @@
-package src.test.model.company;
+package src.test.model.inventory;
 
 import org.junit.jupiter.api.Test;
 import src.main.model.inventory.Product;

@@ -1,4 +1,14 @@
 package src.test.model.company;
 
-public class SuppliersMapTest {
+import org.junit.jupiter.api.BeforeEach;
+import src.main.model.company.SuppliersMap;
+
+public class SuppliersMapTest extends TradersMapTest{
+    SuppliersMap testSuppliersMap;
+
+    @BeforeEach
+    void setUpSuppliers() {
+        testSuppliersMap = new SuppliersMap();
+        testMap = testSuppliersMap;
+    }
 }

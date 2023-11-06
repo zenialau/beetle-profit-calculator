@@ -1,6 +1,4 @@
-package src.main.model.company;
-
-import src.main.model.inventory.Product;
+package src.main.model.inventory;
 
 import java.util.ArrayList;
 import java.util.List;

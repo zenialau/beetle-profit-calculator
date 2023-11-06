@@ -3,8 +3,7 @@ package src.test.model.company;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.main.model.company.Buyer;
-import src.main.model.company.BuyersMap;
-import src.main.model.company.PurchaseList;
+import src.main.model.inventory.PurchaseList;
 import src.main.model.company.TradersMap;
 import src.main.model.exception.DuplicateBuyerException;
 import src.test.model.ModelTest;
@@ -16,7 +15,7 @@ public class TradersMapTest extends ModelTest {
 
     @BeforeEach
     void setup() {
-        testMap = new BuyersMap();
+        testMap = new TradersMap();
         testPurchase.addItem(testBeetle);
         testPurchase.addItem(testDisplay);
     }
@@ -28,7 +27,7 @@ public class TradersMapTest extends ModelTest {
     }
 
     @Test
-    void testAddBuyerOnce() {
+    void testAddTraderOnce() {
         try {
             testMap.addTrader(testBuyer);
             assertEquals(1, testMap.getTradersAndPurchases().size());
@@ -40,7 +39,7 @@ public class TradersMapTest extends ModelTest {
 
     }
     @Test
-    void testAddBuyerDuplicate() {
+    void testAddTraderDuplicate() {
         try {
             testMap.addTrader(testBuyer);
             testMap.addTrader(testBuyer);
@@ -50,7 +49,7 @@ public class TradersMapTest extends ModelTest {
         }
     }
     @Test
-    void testAddBuyerDuplicateNew() {
+    void testAddTraderDuplicateNew() {
         try {
             testMap.addTrader(testBuyer);
             testMap.addTrader(new Buyer("Zenia", "_zenialau_", "Coquitlam"));
@@ -90,11 +89,11 @@ public class TradersMapTest extends ModelTest {
     }
 
     @Test
-    void testGetTotalRevenueEmpty() {
+    void testGetTotalRevenueOrExpenseEmpty() {
         assertEquals(0, testMap.getTotalRevenueOrExpense());
     }
     @Test
-    void testGetTotalRevenueGeneral() {
+    void testGetTotalRevenueOrExpenseGeneral() {
         try {
             testMap.addTrader(testBuyer);
         } catch (Exception e) {

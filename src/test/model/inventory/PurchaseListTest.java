@@ -1,7 +1,7 @@
-package src.test.model.company;
+package src.test.model.inventory;
 
 import org.junit.jupiter.api.Test;
-import src.main.model.company.Purchase;
+import src.main.model.inventory.Purchase;
 import src.test.model.ModelTest;
 
 import java.util.List;
