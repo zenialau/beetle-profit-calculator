@@ -11,22 +11,7 @@ public class BuyerTest extends ModelTest {
     void testConstructor() {
         assertEquals("Zenia", testBuyer.getName());
         assertEquals("_zenialau_", testBuyer.getIgAccount());
-        //assertTrue(testBuyer.getListOfPurchases().isEmpty());
+        assertEquals("Coquitlam", testBuyer.getAddress());
     }
-
-
-//
-//    @Test
-//    void testGetAmountPurchasedEmpty() {
-//        assertEquals(0, testBuyer.getTotalAmountPurchased());
-//    }
-//    @Test
-//    void testGetAmountPurchasedGeneral() {
-//        testPurchase.addItem(testItem);
-//        testPurchase.addItem(testItem); // $200 purchase
-//        testBuyer.addPurchase(testPurchase);
-//        testBuyer.addPurchase(testPurchase); // $200 purchase * 2
-//        assertEquals(400, testBuyer.getTotalAmountPurchased());
-//    }
 
 }

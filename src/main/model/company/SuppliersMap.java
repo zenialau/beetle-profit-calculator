@@ -1,5 +1,9 @@
 package src.main.model.company;
 
 // Represents a map with key: Supplier, value: list of
-public class SuppliersMap {
+public class SuppliersMap extends TradersMap{
+
+    public SuppliersMap() {
+        super();
+    }
 }

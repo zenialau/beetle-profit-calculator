@@ -1,9 +1,7 @@
 package src.test.model;
 
 import org.junit.jupiter.api.BeforeEach;
-import src.main.model.company.Buyer;
-import src.main.model.company.Purchase;
-import src.main.model.company.PurchaseList;
+import src.main.model.company.*;
 import src.main.model.inventory.Beetle;
 import src.main.model.inventory.Container;
 import src.main.model.inventory.MountedDisplay;
@@ -18,7 +16,10 @@ public abstract class ModelTest {
     protected Product testItem2;
     protected Purchase testPurchase;
     protected PurchaseList testList;
+    protected Trader testTraderBuyer;
+    protected Trader testTraderSupplier;
     protected Buyer testBuyer;
+    protected Supplier testSupplier;
 
     @BeforeEach
     void runBefore() {
@@ -29,6 +30,9 @@ public abstract class ModelTest {
         testItem2 = testDisplay;
         testPurchase = new Purchase();
         testList = new PurchaseList();
-        testBuyer = new Buyer("Zenia", "_zenialau_");
+        testBuyer = new Buyer("Zenia", "_zenialau_", "Coquitlam");
+        testSupplier = new Supplier("Nigel", "Canada");
+        testTraderBuyer = testBuyer;
+        testTraderSupplier = testSupplier;
     }
 }
