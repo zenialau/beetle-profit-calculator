@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import src.main.model.company.Buyer;
 import src.main.model.inventory.PurchaseList;
 import src.main.model.company.TradersMap;
-import src.main.model.exception.DuplicateBuyerException;
+import src.main.model.exception.DuplicateTraderException;
 import src.test.model.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,8 +33,8 @@ public class TradersMapTest extends ModelTest {
             assertEquals(1, testMap.getTradersAndPurchases().size());
             assertEquals(0, testMap.getNumPurchases(testBuyer));
             assertTrue(testMap.getPurchaseList(testBuyer).isEmpty());
-        } catch (DuplicateBuyerException e) {
-            fail("DuplicateBuyerException thrown but not expected.");
+        } catch (DuplicateTraderException e) {
+            fail("DuplicateTraderException thrown but not expected.");
         }
 
     }
@@ -43,8 +43,8 @@ public class TradersMapTest extends ModelTest {
         try {
             testMap.addTrader(testBuyer);
             testMap.addTrader(testBuyer);
-            fail("DuplicateBuyerException expected but not thrown.");
-        } catch (DuplicateBuyerException e) {
+            fail("DuplicateTraderException expected but not thrown.");
+        } catch (DuplicateTraderException e) {
             // expected
         }
     }
@@ -53,8 +53,8 @@ public class TradersMapTest extends ModelTest {
         try {
             testMap.addTrader(testBuyer);
             testMap.addTrader(new Buyer("Zenia", "_zenialau_", "Coquitlam"));
-            fail("DuplicateBuyerException expected but not thrown.");
-        } catch (DuplicateBuyerException e) {
+            fail("DuplicateTraderException expected but not thrown.");
+        } catch (DuplicateTraderException e) {
             // expected
         }
     }

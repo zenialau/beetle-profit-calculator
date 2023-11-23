@@ -1,6 +1,6 @@
 package src.main.model.company;
 
-import src.main.model.exception.DuplicateBuyerException;
+import src.main.model.exception.DuplicateTraderException;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
 
@@ -20,10 +20,10 @@ public class TradersMap {
 
     // MODIFIES: this
     // EFFECTS: add a Trader and an empty PurchaseList to the map
-    //          if the same trader already exist, throw DuplicateBuyerException
-    public void addTrader(Trader trader) throws DuplicateBuyerException {
+    //          if the same trader already exist, throw DuplicateTraderException
+    public void addTrader(Trader trader) throws DuplicateTraderException {
         if (tradersMap.containsKey(trader)) {
-            throw new DuplicateBuyerException();
+            throw new DuplicateTraderException();
         }
         tradersMap.put(trader, new PurchaseList());
     }

@@ -5,7 +5,7 @@ import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.company.SuppliersMap;
 import src.main.model.company.Trader;
-import src.main.model.exception.DuplicateBuyerException;
+import src.main.model.exception.DuplicateTraderException;
 import src.main.model.inventory.PurchaseList;
 
 import java.util.Map;
@@ -114,7 +114,7 @@ public class BeetleConsole {
         Buyer buyer = new Buyer(name, igAccount, address);
         try {
             buyers.addTrader(buyer);
-        } catch (DuplicateBuyerException e) {
+        } catch (DuplicateTraderException e) {
             System.out.println("Buyer already exist!");
         }
     }
