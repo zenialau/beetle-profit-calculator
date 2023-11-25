@@ -1,4 +1,4 @@
-package src.main.model.inventory;
+package src.main.model.oldinventory;
 
 // Represent a specific kind of beetle with latin name, cost, and size in mm
 public class Beetle extends Product {

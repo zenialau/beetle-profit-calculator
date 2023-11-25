@@ -1,4 +1,4 @@
-package src.main.model.inventory;
+package src.main.model.oldinventory;
 
 // Represents a container used to make the mounted display with type, size, cost
 public class Container {

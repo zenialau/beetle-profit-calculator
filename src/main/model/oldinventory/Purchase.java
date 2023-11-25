@@ -1,4 +1,4 @@
-package src.main.model.inventory;
+package src.main.model.oldinventory;
 
 import java.util.ArrayList;
 import java.util.List;

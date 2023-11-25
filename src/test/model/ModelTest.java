@@ -2,7 +2,7 @@ package src.test.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import src.main.model.company.*;
-import src.main.model.inventory.*;
+import src.main.model.oldinventory.*;
 
 // set up test objects @BeforeEach
 public abstract class ModelTest {

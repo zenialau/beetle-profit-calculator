@@ -1,4 +1,4 @@
 package src.main.model.inventory;
 
-public class Product {
+public abstract class Inventory {
 }

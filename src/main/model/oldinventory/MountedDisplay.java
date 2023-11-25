@@ -1,4 +1,4 @@
-package src.main.model.inventory;
+package src.main.model.oldinventory;
 
 // Represent a mounted display, with beetle, container, and time spent on it, and selling price
 public class MountedDisplay extends Product{
