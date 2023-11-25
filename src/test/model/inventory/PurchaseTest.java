@@ -1,49 +1,35 @@
 package src.test.model.inventory;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.model.inventory.InventoryItem;
-import src.main.model.inventory.Purchase;
+import src.test.model.ModelTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PurchaseTest {
-    Purchase testPurchase;
-    InventoryItem i1;
-    InventoryItem i2;
-
-    @BeforeEach
-    void runBefore() {
-        testPurchase = new Purchase();
-        i1 = new InventoryItem("beetle", "", 95,
-                "A1", "", 50);
-        i2 = new InventoryItem("container", "", 0,
-                "", "10 containers", 10);
-    }
+public class PurchaseTest extends ModelTest {
 
     @Test
     void testConstructor() {
-        assertEquals(0, testPurchase.getNumItems());
-        assertEquals(0, testPurchase.getAmountPurchased());
+        assertEquals(0, testPurchase1.getNumItems());
+        assertEquals(0, testPurchase1.getAmountPurchased());
     }
 
     @Test
     void testAddItemOnce() {
-        testPurchase.addItem(i1);
-        assertEquals(1, testPurchase.getNumItems());
-        assertEquals(50, testPurchase.getAmountPurchased());
-        assertTrue(testPurchase.getItems().contains(i1));
+        testPurchase1.addItem(i1);
+        assertEquals(1, testPurchase1.getNumItems());
+        assertEquals(50, testPurchase1.getAmountPurchased());
+        assertTrue(testPurchase1.getItems().contains(i1));
     }
 
     @Test
     void testAddItemMultiple() {
-        testPurchase.addItem(i1);
-        testPurchase.addItem(i2);
-        assertEquals(2, testPurchase.getNumItems());
-        assertEquals(60, testPurchase.getAmountPurchased());
-        assertTrue(testPurchase.getItems().contains(i1));
-        assertTrue(testPurchase.getItems().contains(i2));
+        testPurchase1.addItem(i1);
+        testPurchase1.addItem(i2);
+        assertEquals(2, testPurchase1.getNumItems());
+        assertEquals(60, testPurchase1.getAmountPurchased());
+        assertTrue(testPurchase1.getItems().contains(i1));
+        assertTrue(testPurchase1.getItems().contains(i2));
     }
 
 }

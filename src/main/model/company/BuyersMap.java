@@ -1,6 +1,5 @@
 package src.main.model.company;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
