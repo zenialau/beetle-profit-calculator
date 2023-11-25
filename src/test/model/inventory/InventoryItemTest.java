@@ -1,4 +1,4 @@
 package src.test.model.inventory;
 
-public class SuppliesTest {
+public class InventoryItemTest {
 }
