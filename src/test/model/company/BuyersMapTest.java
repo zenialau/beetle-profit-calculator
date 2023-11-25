@@ -10,9 +10,7 @@ public class BuyersMapTest extends ModelTest {
 
     @BeforeEach
     void setUpBuyers() {
-        testBuyersMap = new BuyersMap();
-        testPurchase.addItem(testBeetle);
-        testPurchase.addItem(testDisplay);
+
     }
 
     @Test

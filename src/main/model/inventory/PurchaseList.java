@@ -1,10 +1,10 @@
-package src.main.model.oldinventory;
+package src.main.model.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// a list of purchases (value of BuyersMap)
 public class PurchaseList {
+
     private List<Purchase> purchaseList;
 
     // EFFECTS: constructs an empty list of purchases
@@ -22,7 +22,7 @@ public class PurchaseList {
     public double getAmountPurchased() {
         double amount = 0;
         for (Purchase purchase: purchaseList) {
-            amount += purchase.getCheckoutAmount();
+            amount += purchase.getAmountPurchased();
         }
         return amount;
     }
@@ -43,3 +43,5 @@ public class PurchaseList {
         return purchaseList.get(index);
     }
 }
+
+
