@@ -1,11 +1,9 @@
 package src.test.model.company;
 
-import jdk.jshell.spi.ExecutionControlProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
-import src.main.model.company.Supplier;
 import src.main.model.exception.DuplicateException;
 import src.test.model.ModelTest;
 
