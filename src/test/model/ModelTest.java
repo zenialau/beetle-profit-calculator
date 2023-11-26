@@ -14,8 +14,8 @@ public abstract class ModelTest {
     protected Purchase testPurchase2;
     protected InventoryItem i1;
     protected InventoryItem i2;
-    protected Buyer testBuyer;
-    protected Supplier testSupplier;
+    protected Buyer testBuyer1;
+    protected Supplier testSupplier1;
 
     @BeforeEach
     void runFirst() {
@@ -26,8 +26,7 @@ public abstract class ModelTest {
                 "A1", "", 50);
         i2 = new InventoryItem("container", "", 0,
                 "", "10 containers", 10);
-        testBuyer = new Buyer("Zenia", "_zenialau_", "Coquitlam");
-        testSupplier = new Supplier("Nigel", "Canada");
-
+        testBuyer1 = new Buyer("Zenia", "_zenialau_", "Coquitlam");
+        testSupplier1 = new Supplier("Nigel", "Canada");
     }
 }

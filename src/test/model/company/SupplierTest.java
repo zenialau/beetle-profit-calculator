@@ -9,8 +9,8 @@ public class SupplierTest extends ModelTest {
 
     @Test
     void testConstructor() {
-        assertEquals("Nigel", testSupplier.getName());
-        assertEquals("Canada", testSupplier.getCountry());
+        assertEquals("Nigel", testSupplier1.getName());
+        assertEquals("Canada", testSupplier1.getCountry());
     }
 
 }

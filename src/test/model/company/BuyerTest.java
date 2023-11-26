@@ -9,9 +9,9 @@ public class BuyerTest extends ModelTest {
 
     @Test
     void testConstructor() {
-        assertEquals("Zenia", testBuyer.getName());
-        assertEquals("_zenialau_", testBuyer.getIgAccount());
-        assertEquals("Coquitlam", testBuyer.getAddress());
+        assertEquals("Zenia", testBuyer1.getName());
+        assertEquals("_zenialau_", testBuyer1.getIgAccount());
+        assertEquals("Coquitlam", testBuyer1.getAddress());
     }
 
 }
