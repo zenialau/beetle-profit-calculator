@@ -1,10 +1,7 @@
 package src.main.ui;
 
 import src.main.model.ProfitCalculator;
-import src.main.model.company.Buyer;
-import src.main.model.company.BuyersMap;
-import src.main.model.company.SuppliersMap;
-import src.main.model.company.Trader;
+import src.main.model.company.*;
 import src.main.model.exception.DuplicateException;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
@@ -26,36 +23,39 @@ public class BeetleConsole {
         mainMenu();
     }
 
-    private void generalFormatMenu(String menu, Buyer buyer, Purchase purchase) {
+    private void generalFormatMenu(String menu, Trader trader, Purchase purchase) {
         boolean keepGoing = true;
         String command;
 
         while (keepGoing){
-            displayOptions(menu, buyer, purchase);
+            displayOptions(menu, trader, purchase);
             command = input.next();
             command = command.toLowerCase();
 
             if (command.equals("q")) {
                 keepGoing = false;
             } else {
-                processCommandOptions(menu, buyer, purchase, command);
+                processCommandOptions(menu, trader, purchase, command);
             }
         }
     }
 
-    private void displayOptions(String menu, Buyer buyer, Purchase purchase) {
+    private void displayOptions(String menu, Trader trader, Purchase purchase) {
         switch (menu) {
             case "mainMenu":
                 displayMainMenu();
                 break;
             case "buyersMenu":
-                displayBuyersMenu();
+                displayTradersMenu("buyer");
                 break;
-            case "viewBuyerMenu":
-                displayViewBuyerMenu(buyer);
+            case "viewTraderMenu":
+                displayViewTraderMenu(trader);
                 break;
             case "addPurchaseMenu":
                 displayAddPurchaseMenu(purchase);
+                break;
+            case "suppliersMenu":
+                displayTradersMenu("supplier");
                 break;
             case "calculatorMenu":
                 displayCalculatorMenu();
@@ -63,7 +63,7 @@ public class BeetleConsole {
         }
     }
 
-    private void processCommandOptions(String menu, Buyer buyer, Purchase purchase, String command) {
+    private void processCommandOptions(String menu, Trader trader, Purchase purchase, String command) {
         switch (menu) {
             case "mainMenu":
                 processCommand(command);
@@ -71,11 +71,14 @@ public class BeetleConsole {
             case "buyersMenu":
                 processBuyersCommand(command);
                 break;
-            case "viewBuyerMenu":
-                processViewBuyerCommand(command, buyer);
+            case "viewTraderMenu":
+                processViewTraderCommand(command, trader);
                 break;
             case "addPurchaseMenu":
                 processAddPurchaseCommand(command, purchase);
+                break;
+            case "suppliersMenu":
+                processSuppliersCommand(command);
                 break;
         }
     }
@@ -109,13 +112,26 @@ public class BeetleConsole {
         generalFormatMenu("buyersMenu", null, null);
     }
 
-    private void displayBuyersMenu() {
-        for (Trader buyer : buyers.getListOfBuyers()) {
-            System.out.println(buyer.getName());
+    private void suppliersMenu() {
+        generalFormatMenu("suppliersMenu", null, null);
+    }
+
+    private void displayTradersMenu(String t) {
+        String trader = "";
+        if (t.equals("buyer")) {
+            for (Buyer buyer : buyers.getListOfBuyers()) {
+                System.out.println(buyer.getName());
+            }
+            trader = "buyer";
+        } else if (t.equals("supplier")) {
+            for (Supplier supplier : suppliers.getListOfSuppliers()) {
+                System.out.println(supplier.getName());
+            }
+            trader = "supplier";
         }
         System.out.println();
-        System.out.println("Add buyer > a");
-        System.out.println("View buyer details or add purchase > enter buyer's name");
+        System.out.println("Add " + trader + " > a");
+        System.out.println("View " + trader + " details or add purchase > enter " + trader + "'s name");
         System.out.println("Quit > q");
     }
 
@@ -127,6 +143,18 @@ public class BeetleConsole {
         for (Buyer buyer : buyers.getListOfBuyers()) {
             if (buyer.getName().toLowerCase().equals(command)) {
                 viewBuyerMenu(buyer);
+            }
+        }
+    }
+
+    // REQUIRES: no suppliers have the same name
+    private void processSuppliersCommand(String command) {
+        if (command.equals("a")) {
+            addSupplierMenu();
+        }
+        for (Supplier supplier : suppliers.getListOfSuppliers()) {
+            if (supplier.getName().toLowerCase().equals(command)) {
+                viewSupplierMenu(supplier);
             }
         }
     }
@@ -146,32 +174,66 @@ public class BeetleConsole {
         }
     }
 
-    private void viewBuyerMenu(Buyer buyer) {
-        generalFormatMenu("viewBuyerMenu", buyer, null);
+    private void addSupplierMenu() {
+        System.out.println("Name: ");
+        String name = input.next();
+        System.out.println("Country: ");
+        String country = input.next();
+        Supplier supplier = new Supplier(name, country);
+        try {
+            suppliers.addSupplier(supplier);
+        } catch (DuplicateException e) {
+            System.out.println("Supplier already exist!");
+        }
     }
 
-    private void displayViewBuyerMenu(Buyer buyer) {
-        for (Purchase purchase : buyers.getPurchaseList(buyer).getPurchaseList()) {
-            for (InventoryItem item : purchase.getItems()) {
-                System.out.print(item.getName() + ": " + item.getPrice() + ", ");
+    private void viewBuyerMenu(Buyer buyer) {
+        generalFormatMenu("viewTraderMenu", buyer, null);
+    }
+
+    private void viewSupplierMenu(Supplier supplier) {
+        generalFormatMenu("viewTraderMenu", supplier, null);
+    }
+
+    private void displayViewTraderMenu(Trader trader) {
+        String t = "";
+        if (trader instanceof Buyer) {
+            for (Purchase purchase : buyers.getPurchaseList((Buyer) trader).getPurchaseList()) {
+                for (InventoryItem item : purchase.getItems()) {
+                    System.out.print(item.getName() + ": " + item.getPrice() + ", ");
+                }
+                System.out.println();
             }
-            System.out.println();
+            t = "buyer";
+        } else if (trader instanceof Supplier) {
+            for (Purchase purchase : suppliers.getPurchaseList((Supplier) trader).getPurchaseList()) {
+                for (InventoryItem item : purchase.getItems()) {
+                    System.out.print(item.getName() + ": " + item.getPrice() + ", ");
+                }
+                System.out.println();
+            }
+            t = "supplier";
         }
         System.out.println();
-        System.out.println("Add purchase to " + buyer.getName() + "(buyer) > a");
+        System.out.println("Add purchase to " + trader.getName() + "(" + t + ") > a");
         System.out.println("Quit > q");
     }
 
-    private void processViewBuyerCommand(String command, Buyer buyer) {
+    private void processViewTraderCommand(String command, Trader trader) {
         if (command.equals("a")) {
-            addPurchaseMenu(buyer);
+            addPurchaseMenu(trader);
         }
     }
 
-    private void addPurchaseMenu(Buyer buyer) {
+    private void addPurchaseMenu(Trader trader) {
         Purchase purchase = new Purchase();
-        generalFormatMenu("addPurchaseMenu", buyer, purchase);
-        buyers.getPurchaseList(buyer).addPurchase(purchase);
+        generalFormatMenu("addPurchaseMenu", trader, purchase);
+        if (trader instanceof Buyer) {
+            buyers.getPurchaseList((Buyer) trader).addPurchase(purchase);
+        } else if (trader instanceof Supplier) {
+            suppliers.getPurchaseList((Supplier) trader).addPurchase(purchase);
+        }
+
     }
 
     private void displayAddPurchaseMenu(Purchase purchase) {
@@ -203,10 +265,6 @@ public class BeetleConsole {
         double price = Double.parseDouble(input.next());
         InventoryItem item = new InventoryItem(name, description, size, quality, comment, price);
         purchase.addItem(item);
-    }
-
-    private void suppliersMenu() {
-
     }
 
     private void calculatorMenu() {
