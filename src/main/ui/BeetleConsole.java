@@ -8,7 +8,6 @@ import src.main.model.company.Trader;
 import src.main.model.exception.DuplicateException;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
-import src.main.model.inventory.PurchaseList;
 
 import java.util.Scanner;
 
@@ -27,21 +26,62 @@ public class BeetleConsole {
         mainMenu();
     }
 
-    private void mainMenu() {
+    private void generalFormatMenu(String menu, Buyer buyer, Purchase purchase) {
         boolean keepGoing = true;
         String command;
 
         while (keepGoing){
-            displayMainMenu();
+            displayOptions(menu, buyer, purchase);
             command = input.next();
             command = command.toLowerCase();
 
             if (command.equals("q")) {
                 keepGoing = false;
             } else {
-                processCommand(command);
+                processCommandOptions(menu, buyer, purchase, command);
             }
         }
+    }
+
+    private void displayOptions(String menu, Buyer buyer, Purchase purchase) {
+        switch (menu) {
+            case "mainMenu":
+                displayMainMenu();
+                break;
+            case "buyersMenu":
+                displayBuyersMenu();
+                break;
+            case "viewBuyerMenu":
+                displayViewBuyerMenu(buyer);
+                break;
+            case "addPurchaseMenu":
+                displayAddPurchaseMenu(purchase);
+                break;
+            case "calculatorMenu":
+                displayCalculatorMenu();
+                break;
+        }
+    }
+
+    private void processCommandOptions(String menu, Buyer buyer, Purchase purchase, String command) {
+        switch (menu) {
+            case "mainMenu":
+                processCommand(command);
+                break;
+            case "buyersMenu":
+                processBuyersCommand(command);
+                break;
+            case "viewBuyerMenu":
+                processViewBuyerCommand(command, buyer);
+                break;
+            case "addPurchaseMenu":
+                processAddPurchaseCommand(command, purchase);
+                break;
+        }
+    }
+
+    private void mainMenu() {
+        generalFormatMenu("mainMenu", null, null);
     }
 
     private void displayMainMenu() {
@@ -66,20 +106,7 @@ public class BeetleConsole {
     }
 
     private void buyersMenu() {
-        boolean keepGoing = true;
-        String command;
-
-        while (keepGoing) {
-            displayBuyersMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processBuyersCommand(command);
-            }
-        }
+        generalFormatMenu("buyersMenu", null, null);
     }
 
     private void displayBuyersMenu() {
@@ -120,20 +147,7 @@ public class BeetleConsole {
     }
 
     private void viewBuyerMenu(Buyer buyer) {
-        boolean keepGoing = true;
-        String command;
-
-        while (keepGoing) {
-            displayViewBuyerMenu(buyer);
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processViewBuyerCommand(command, buyer);
-            }
-        }
+        generalFormatMenu("viewBuyerMenu", buyer, null);
     }
 
     private void displayViewBuyerMenu(Buyer buyer) {
@@ -156,23 +170,8 @@ public class BeetleConsole {
 
     private void addPurchaseMenu(Buyer buyer) {
         Purchase purchase = new Purchase();
-        boolean keepGoing = true;
-        String command;
-
-        while (keepGoing) {
-            displayAddPurchaseMenu(purchase);
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            }  else if (command.equals("c")) {
-                keepGoing = false;
-                buyers.getPurchaseList(buyer).addPurchase(purchase);
-            } else {
-                processAddPurchaseCommand(command, purchase);
-            }
-        }
+        generalFormatMenu("addPurchaseMenu", buyer, purchase);
+        buyers.getPurchaseList(buyer).addPurchase(purchase);
     }
 
     private void displayAddPurchaseMenu(Purchase purchase) {
@@ -180,8 +179,7 @@ public class BeetleConsole {
             System.out.println(item.getName() + ": " + item.getPrice());
         }
         System.out.println("Add item to purchase > a");
-        System.out.println("Confirm purchase > c");
-        System.out.println("Quit > q");
+        System.out.println("Quit and confirm purchase > q");
     }
 
     private void processAddPurchaseCommand(String command, Purchase purchase) {
@@ -212,18 +210,7 @@ public class BeetleConsole {
     }
 
     private void calculatorMenu() {
-        boolean keepGoing = true;
-        String command;
-
-        while (keepGoing) {
-            displayCalculatorMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            }
-        }
+        generalFormatMenu("calculatorMenu", null, null);
     }
 
     private void displayCalculatorMenu() {
