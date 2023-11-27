@@ -198,27 +198,25 @@ public class BeetleConsole {
     private void displayViewTraderMenu(Trader trader) {
         String t = "";
         if (trader instanceof Buyer) {
-            for (Purchase purchase : buyers.getPurchaseList((Buyer) trader).getPurchaseList()) {
-                System.out.print(purchase.getPurchaseDate().toString() + "   ");
-                for (InventoryItem item : purchase.getItems()) {
-                    System.out.print(item.getName() + ": " + item.getPrice() + ", ");
-                }
-                System.out.println();
-            }
+            printPurchaseList(buyers, trader);
             t = "buyer";
         } else if (trader instanceof Supplier) {
-            for (Purchase purchase : suppliers.getPurchaseList((Supplier) trader).getPurchaseList()) {
-                System.out.print(purchase.getPurchaseDate().toString() + "   ");
-                for (InventoryItem item : purchase.getItems()) {
-                    System.out.print(item.getName() + ": " + item.getPrice() + ", ");
-                }
-                System.out.println();
-            }
+            printPurchaseList(suppliers, trader);
             t = "supplier";
         }
         System.out.println();
         System.out.println("Add purchase to " + trader.getName() + "(" + t + ") > a");
         System.out.println("Quit > q");
+    }
+
+    private void printPurchaseList(TradersMap traders, Trader trader) {
+        for (Purchase purchase : traders.getPurchaseList(trader).getPurchaseList()) {
+            System.out.print(purchase.getPurchaseDate().toString() + "   ");
+            for (InventoryItem item : purchase.getItems()) {
+                System.out.print(item.getName() + ": " + item.getPrice() + ", ");
+            }
+            System.out.println();
+        }
     }
 
     private void processViewTraderCommand(String command, Trader trader) {
@@ -228,7 +226,6 @@ public class BeetleConsole {
     }
 
     private void addPurchaseMenu(Trader trader) {
-        // get user input of date? !!!
         Purchase purchase = new Purchase();
         System.out.println("Enter the date of purchase: (YYYY-MM-DD)");
         String date = input.next();

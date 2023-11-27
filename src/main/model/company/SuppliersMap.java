@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 // Represents a map with key: Supplier, value: PurchaseList
-public class SuppliersMap {
+public class SuppliersMap extends TradersMap {
     private Map<Supplier, PurchaseList> suppliersMap;
 
     // EFFECTS: constructs an empty map of buyers
@@ -38,7 +38,7 @@ public class SuppliersMap {
     }
 
     // EFFECTS: return the PurchaseList of the specified buyer
-    public PurchaseList getPurchaseList(Supplier supplier) {
+    public PurchaseList getPurchaseList(Trader supplier) {
         return suppliersMap.get(supplier);
     }
 
