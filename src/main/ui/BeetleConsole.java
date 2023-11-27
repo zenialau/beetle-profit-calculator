@@ -199,6 +199,7 @@ public class BeetleConsole {
         String t = "";
         if (trader instanceof Buyer) {
             for (Purchase purchase : buyers.getPurchaseList((Buyer) trader).getPurchaseList()) {
+                System.out.print(purchase.getPurchaseDate().toString() + "   ");
                 for (InventoryItem item : purchase.getItems()) {
                     System.out.print(item.getName() + ": " + item.getPrice() + ", ");
                 }
@@ -207,6 +208,7 @@ public class BeetleConsole {
             t = "buyer";
         } else if (trader instanceof Supplier) {
             for (Purchase purchase : suppliers.getPurchaseList((Supplier) trader).getPurchaseList()) {
+                System.out.print(purchase.getPurchaseDate().toString() + "   ");
                 for (InventoryItem item : purchase.getItems()) {
                     System.out.print(item.getName() + ": " + item.getPrice() + ", ");
                 }
@@ -226,7 +228,11 @@ public class BeetleConsole {
     }
 
     private void addPurchaseMenu(Trader trader) {
+        // get user input of date? !!!
         Purchase purchase = new Purchase();
+        System.out.println("Enter the date of purchase: (YYYY-MM-DD)");
+        String date = input.next();
+        purchase.setPurchaseDate(date);
         generalFormatMenu("addPurchaseMenu", trader, purchase);
         if (trader instanceof Buyer) {
             buyers.getPurchaseList((Buyer) trader).addPurchase(purchase);

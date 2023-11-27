@@ -1,10 +1,12 @@
 package src.main.model.inventory;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a one time purchase with 1 or more InventoryItem
 public class Purchase {
+    private LocalDate purchaseDate;
     private List<InventoryItem> items;
 
     // EFFECTS: constructs an empty cart with no items
@@ -34,6 +36,15 @@ public class Purchase {
 
     public List<InventoryItem> getItems() {
         return items;
+    }
+
+    // REQUIRES: String date format: "YYYY-MM-DD"
+    public void setPurchaseDate(String date) {
+        purchaseDate = LocalDate.parse(date);
+    }
+
+    public LocalDate getPurchaseDate() {
+        return purchaseDate;
     }
 
 }
