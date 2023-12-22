@@ -1,9 +1,12 @@
 package src.main.model.company;
 
+import org.json.JSONObject;
+import src.main.persistence.Writable;
+
 import java.util.Objects;
 
 // Represent a buyer with name, instagram account and address
-public class Buyer extends Trader {
+public class Buyer extends Trader implements Writable {
     private String igAccount;
     private String address;
 
@@ -35,4 +38,12 @@ public class Buyer extends Trader {
         return address;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("igAccount", igAccount);
+        json.put("address", address);
+        return json;
+    }
 }

@@ -1,5 +1,9 @@
 package src.main.model.inventory;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import src.main.persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +45,15 @@ public class PurchaseList {
 
     public Purchase get(int index) {
         return purchaseList.get(index);
+    }
+
+    // EFFECTS: return the purchaseList as a JSON array
+    public JSONArray toJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Purchase p : purchaseList) {
+            jsonArray.put(p.toJson());
+        }
+        return jsonArray;
     }
 }
 

@@ -1,5 +1,6 @@
 package src.main.model.company;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import src.main.model.exception.DuplicateException;
 import src.main.model.inventory.Purchase;
@@ -69,7 +70,26 @@ public class BuyersMap extends TradersMap implements Iterable<Buyer> {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("buyers", buyersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns buyers in this.buyersMap as a JSON array
+    private JSONArray buyersToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Buyer b : getListOfBuyers()) {
+            jsonArray.put(buyerToJson(b));
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: returns Buyer with corresponding PurchaseList as a JSON object
+    private JSONObject buyerToJson(Buyer buyer) {
+        JSONObject json;
+        json = buyer.toJson();
+        json.put("purchaseList", this.getPurchaseList(buyer).toJson());
+        return json;
     }
 
     @Override

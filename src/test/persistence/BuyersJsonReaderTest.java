@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Reference: JsonSerializationDemo
-public class BuyersJsonReaderTest extends JsonReaderTest {
+public class BuyersJsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {

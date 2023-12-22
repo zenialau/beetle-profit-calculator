@@ -1,11 +1,15 @@
 package src.main.model.inventory;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import src.main.persistence.Writable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a one time purchase with 1 or more InventoryItem
-public class Purchase {
+public class Purchase implements Writable {
     private LocalDate purchaseDate;
     private List<InventoryItem> items;
 
@@ -47,4 +51,20 @@ public class Purchase {
         return purchaseDate;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("purchaseDate", purchaseDate.toString());
+        json.put("items", itemsToJson());
+        return json;
+    }
+
+    // EFFECTS: return this.items as a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (InventoryItem i :items) {
+            jsonArray.put(i.toJson());
+        }
+        return jsonArray;
+    }
 }

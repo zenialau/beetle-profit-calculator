@@ -13,7 +13,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SuppliersJsonReaderTest extends JsonReaderTest {
+public class SuppliersJsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {

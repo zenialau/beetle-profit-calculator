@@ -1,9 +1,12 @@
 package src.main.model.company;
 
+import org.json.JSONObject;
+import src.main.persistence.Writable;
+
 import java.util.Objects;
 
 // Represents a supplier with their name and country
-public class Supplier extends Trader {
+public class Supplier extends Trader implements Writable {
     private String country;
 
     public Supplier(String name, String country) {
@@ -28,4 +31,11 @@ public class Supplier extends Trader {
         return country;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("country", country);
+        return json;
+    }
 }

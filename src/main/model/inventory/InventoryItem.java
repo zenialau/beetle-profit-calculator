@@ -1,9 +1,12 @@
 package src.main.model.inventory;
 
+import org.json.JSONObject;
+import src.main.persistence.Writable;
+
 import java.util.Objects;
 
 // represents an inventory item that is bought or sold
-public class InventoryItem {
+public class InventoryItem implements Writable {
     private String name;
     private String description; // 4 options: unmounted, mounted, framed, customized
     private double size; // in mm
@@ -58,5 +61,17 @@ public class InventoryItem {
     @Override
     public int hashCode() {
         return Objects.hash(name, description, size, quality, comment, price);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("description", description);
+        json.put("size", Double.toString(size));
+        json.put("quality", quality);
+        json.put("comment", comment);
+        json.put("price", Double.toString(price));
+        return json;
     }
 }
