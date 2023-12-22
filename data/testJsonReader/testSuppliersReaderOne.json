@@ -1,0 +1,44 @@
+{
+  "suppliers": [
+    {
+      "name": "Zen",
+      "country": "Canada",
+      "purchaseList": [
+        {
+          "purchaseDate": "2023-12-04",
+          "items": [
+            {
+              "name": "beetle",
+              "description": "mounted",
+              "size": "87",
+              "quality": "A-",
+              "comment": "",
+              "price": "60"
+            },
+            {
+              "name": "butterfly",
+              "description": "customized",
+              "size": "62.5",
+              "quality": "A1",
+              "comment": "blue",
+              "price": "95"
+            }
+          ]
+        },
+        {
+          "purchaseDate": "2023-11-23",
+          "items": [
+            {
+              "name": "bug",
+              "description": "framed",
+              "size": "30",
+              "quality": "B",
+              "comment": "first purchase discount",
+              "price": "26.5"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,43 +1,19 @@
 package src.test.persistence;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
-import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
 import src.main.persistence.BuyersJsonReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 // Reference: JsonSerializationDemo
 public class BuyersJsonReaderTest extends JsonReaderTest {
-    InventoryItem beetle;
-    InventoryItem butterfly;
-    InventoryItem bug;
-    List<InventoryItem> itemsDec4;
-    List<InventoryItem> itemsNov23;
-
-    @BeforeEach
-    void runBefore() {
-        itemsDec4 = new ArrayList<>();
-        itemsNov23 = new ArrayList<>();
-        beetle = new InventoryItem("beetle", "mounted",
-                87, "A-", "", 60);
-        butterfly = new InventoryItem("butterfly", "customized",
-                62.5, "A1", "blue", 95);
-        bug = new InventoryItem("bug", "framed",
-                30, "B", "first purchase discount", 26.5);
-        itemsDec4.add(beetle);
-        itemsDec4.add(butterfly);
-        itemsNov23.add(bug);
-    }
 
     @Test
     void testReaderNonExistentFile() {
@@ -51,7 +27,7 @@ public class BuyersJsonReaderTest extends JsonReaderTest {
     }
 
     @Test
-    void testReaderEmptyBuyers() {
+    void testBuyersReaderEmpty() {
         BuyersJsonReader reader = new BuyersJsonReader("data/testJsonReader/testBuyersReaderEmpty.json");
         try {
             BuyersMap bm = reader.read();
@@ -63,7 +39,7 @@ public class BuyersJsonReaderTest extends JsonReaderTest {
     }
 
     @Test
-    void testReaderGeneralBookCollectionOne() {
+    void testBuyersReaderOne() {
         BuyersJsonReader reader = new BuyersJsonReader("data/testJsonReader/testBuyersReaderOne.json");
         try {
             BuyersMap bm = reader.read();
@@ -86,7 +62,7 @@ public class BuyersJsonReaderTest extends JsonReaderTest {
     }
 
     @Test
-    void testReaderGeneralBookCollectionTwo() {
+    void testBuyersReaderTwo() {
         BuyersJsonReader reader = new BuyersJsonReader("data/testJsonReader/testBuyersReaderTwo.json");
         try {
             BuyersMap bm = reader.read();
