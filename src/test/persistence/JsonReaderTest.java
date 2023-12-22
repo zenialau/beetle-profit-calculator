@@ -1,4 +1,5 @@
 package src.test.persistence;
 
-public class JsonReaderTest {
+public class JsonReaderTest extends JsonTest{
+
 }

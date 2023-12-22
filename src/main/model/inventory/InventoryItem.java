@@ -1,5 +1,7 @@
 package src.main.model.inventory;
 
+import java.util.Objects;
+
 // represents an inventory item that is bought or sold
 public class InventoryItem {
     private String name;
@@ -45,4 +47,16 @@ public class InventoryItem {
         return price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InventoryItem that = (InventoryItem) o;
+        return Double.compare(size, that.size) == 0 && Double.compare(price, that.price) == 0 && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(quality, that.quality) && Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, size, quality, comment, price);
+    }
 }

@@ -1,15 +1,17 @@
 package src.main.model.company;
 
+import org.json.JSONObject;
 import src.main.model.exception.DuplicateException;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 // Represent a map with key: Buyer and value: PurchaseList
-public class BuyersMap extends TradersMap {
+public class BuyersMap extends TradersMap implements Iterable<Buyer> {
     private Map<Buyer, PurchaseList> buyersMap;
 
     // EFFECTS: constructs an empty map of buyers
@@ -38,6 +40,7 @@ public class BuyersMap extends TradersMap {
     }
 
     // EFFECTS: return the PurchaseList of the specified buyer
+    @Override
     public PurchaseList getPurchaseList(Trader buyer) {
         return buyersMap.get(buyer);
     }
@@ -62,6 +65,16 @@ public class BuyersMap extends TradersMap {
 
     public Map<Buyer, PurchaseList> getBuyersMap() {
         return buyersMap;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    @Override
+    public Iterator<Buyer> iterator() {
+        return buyersMap.keySet().iterator();
     }
 
 }
