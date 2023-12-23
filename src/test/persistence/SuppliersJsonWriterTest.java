@@ -1,14 +1,12 @@
 package src.test.persistence;
 
 import org.junit.jupiter.api.Test;
-import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.company.Supplier;
 import src.main.model.company.SuppliersMap;
 import src.main.model.exception.DuplicateException;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
-import src.main.persistence.BuyersJsonReader;
 import src.main.persistence.JsonWriter;
 import src.main.persistence.SuppliersJsonReader;
 
