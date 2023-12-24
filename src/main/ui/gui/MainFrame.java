@@ -15,23 +15,28 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Main menu of GUI
-public class MainMenu extends JFrame implements ActionListener {
+public class MainFrame extends GUISystem implements ActionListener {
 
-    private static final String BUYERS_JSON_STORE = "./data/buyers.json";
-    private static final String SUPPLIERS_JSON_STORE = "./data/suppliers.json";
-    private static final int SCREEN_WIDTH = 900;
-    private static final int SCREEN_HEIGHT = 600;
-    private static final float CENTER = 0.5F;
+    protected static final String BUYERS_JSON_STORE = "./data/buyers.json";
+    protected static final String SUPPLIERS_JSON_STORE = "./data/suppliers.json";
+    protected static final int SCREEN_WIDTH = 900;
+    protected static final int SCREEN_HEIGHT = 600;
+    protected static final float CENTER = 0.5F;
 
-    private BuyersMap buyers;
-    private SuppliersMap suppliers;
-    private BuyersJsonReader buyersReader;
-    private SuppliersJsonReader suppliersReader;
-    private JsonWriter buyersWriter;
-    private JsonWriter suppliersWriter;
+    protected BuyersMap buyers;
+    protected SuppliersMap suppliers;
+    protected BuyersJsonReader buyersReader;
+    protected SuppliersJsonReader suppliersReader;
+    protected JsonWriter buyersWriter;
+    protected JsonWriter suppliersWriter;
+
+    private CardLayout cardLayout;
 
     private JFrame frame;
-    private JPanel panel;
+    private JPanel container;
+
+    private JPanel mainPanel;
+
     private JMenuBar menuBar;
     private JMenu fileMenu;
     private JMenuItem loadItem;
@@ -41,18 +46,15 @@ public class MainMenu extends JFrame implements ActionListener {
     private JButton suppliersButton;
     private JButton calculatorButton;
 
+    private JPanel buyersPanel;
+
     // EFFECTS: constructs main menu gui
-    public MainMenu() {
-        initFields();
+    public MainFrame() {
+        initPersistence();
+        initData();
         setupFrame();
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        addMenuBar();
-        addSpace(1, 60);
-        addTitle();
-        addSpace(1, 60);
-        addButtons();
-        frame.add(panel);
+        setupPanels();
+        frame.add(container);
         frame.setVisible(true);
     }
 
@@ -77,13 +79,17 @@ public class MainMenu extends JFrame implements ActionListener {
         suppliersButton.setAlignmentX(CENTER);
         calculatorButton.setAlignmentX(CENTER);
 
+        buyersButton.setFocusPainted(false);
+        suppliersButton.setFocusPainted(false);
+        calculatorButton.setFocusPainted(false);
+
         buyersButton.addActionListener(this);
         suppliersButton.addActionListener(this);
         calculatorButton.addActionListener(this);
 
-        panel.add(buyersButton);
-        panel.add(suppliersButton);
-        panel.add(calculatorButton);
+        mainPanel.add(buyersButton);
+        mainPanel.add(suppliersButton);
+        mainPanel.add(calculatorButton);
     }
 
     // MODIFIES: this
@@ -94,7 +100,7 @@ public class MainMenu extends JFrame implements ActionListener {
         titleLabel.setFont(new Font("Serif", Font.PLAIN, 26));
         titleLabel.setAlignmentX(CENTER);
 
-        panel.add(titleLabel);
+        mainPanel.add(titleLabel);
     }
 
     // MODIFIES: this
@@ -123,7 +129,44 @@ public class MainMenu extends JFrame implements ActionListener {
     private void addSpace(int width, int height) {
         Dimension spaceDimension = new Dimension(width, height);
         Component space = Box.createRigidArea(spaceDimension);
-        panel.add(space);
+        mainPanel.add(space);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set up panels in container
+    private void setupPanels() {
+        container = new JPanel();
+        cardLayout = new CardLayout();
+        container.setLayout(cardLayout);
+        setupMainPanel();
+        setupBuyersPanel();
+        //...
+        container.add(mainPanel);
+        container.add(buyersPanel);
+        cardLayout.addLayoutComponent(mainPanel, "mainPanel");
+        cardLayout.addLayoutComponent(buyersPanel, "buyersPanel");
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize and set up buyersPanel
+    private void setupBuyersPanel() {
+        buyersPanel = new BuyersPanel();
+//        buyersPanel = new JPanel();
+//        buyersPanel.setLayout(new BoxLayout(buyersPanel, BoxLayout.Y_AXIS));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize and set up mainPanel
+    private void setupMainPanel() {
+        //mainPanel = new MainPanel();
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        addSpace(1, 60);
+        addTitle();
+        addSpace(1, 60);
+        addButtons();
     }
 
     // MODIFIES: this
@@ -133,16 +176,12 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // center of screen
+        addMenuBar();
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize JsonReader & JsonWriter,
-    //          read previously saved data, or initialize new BuyersMap and SuppliersMap
-    private void initFields() {
-        buyersReader = new BuyersJsonReader(BUYERS_JSON_STORE);
-        suppliersReader = new SuppliersJsonReader(SUPPLIERS_JSON_STORE);
-        buyersWriter = new JsonWriter(BUYERS_JSON_STORE);
-        suppliersWriter = new JsonWriter(SUPPLIERS_JSON_STORE);
+    // EFFECTS: read previously saved data, or initialize new BuyersMap and SuppliersMap
+    private void initData() {
         try {
             buyers = buyersReader.read();
             suppliers = suppliersReader.read();
@@ -152,6 +191,16 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize JsonReader & JsonWriter,
+    //          read previously saved data, or initialize new BuyersMap and SuppliersMap
+    private void initPersistence() {
+        buyersReader = new BuyersJsonReader(BUYERS_JSON_STORE);
+        suppliersReader = new SuppliersJsonReader(SUPPLIERS_JSON_STORE);
+        buyersWriter = new JsonWriter(BUYERS_JSON_STORE);
+        suppliersWriter = new JsonWriter(SUPPLIERS_JSON_STORE);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loadItem) {
@@ -159,7 +208,8 @@ public class MainMenu extends JFrame implements ActionListener {
         } else if (e.getSource() == saveItem) {
             saveData();
         } else if (e.getSource() == buyersButton) {
-            System.out.println("buyers");
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.show(container, "buyersPanel");
         } else if (e.getSource() == suppliersButton) {
             System.out.println("suppliers");
         } else if (e.getSource() == calculatorButton) {
