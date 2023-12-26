@@ -45,6 +45,15 @@ public class PurchaseList {
         return purchaseList.get(index);
     }
 
+    // EFFECTS: return the most recently added purchase, else if list is empty, return null
+    public Purchase getLastPurchase() {
+        if (purchaseList.isEmpty()) {
+            return null;
+        } else {
+            return purchaseList.get(purchaseList.size()-1);
+        }
+    }
+
     // EFFECTS: return the purchaseList as a JSON array
     public JSONArray toJson() {
         JSONArray jsonArray = new JSONArray();

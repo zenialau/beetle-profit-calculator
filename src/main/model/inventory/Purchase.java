@@ -67,4 +67,10 @@ public class Purchase implements Writable {
         }
         return jsonArray;
     }
+
+    // EFFECTS: return a String representation of this purchase
+    public String toString() {
+        return "[" + purchaseDate.toString() + "] " + items.get(0).toString();
+    }
+
 }

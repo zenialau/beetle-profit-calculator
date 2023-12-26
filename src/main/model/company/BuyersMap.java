@@ -60,6 +60,12 @@ public class BuyersMap extends TradersMap implements Iterable<Buyer> {
         return total;
     }
 
+    // EFFECTS: return the most recent purchase made by the specified buyer
+    public Purchase getLastPurchase(Buyer buyer) {
+        PurchaseList pl = this.getPurchaseList(buyer);
+        return pl.getLastPurchase();
+    }
+
     public Set<Buyer> getListOfBuyers() {
         return buyersMap.keySet();
     }

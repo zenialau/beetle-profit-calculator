@@ -74,4 +74,9 @@ public class InventoryItem implements Writable {
         json.put("price", Double.toString(price));
         return json;
     }
+
+    // EFFECTS: return a String representation of this item
+    public String toString() {
+        return name + ": $" + price;
+    }
 }
