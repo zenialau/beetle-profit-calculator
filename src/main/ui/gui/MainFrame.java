@@ -15,8 +15,8 @@ import java.io.IOException;
 
 // the main window frame of gui
 public class MainFrame implements ActionListener {
-    protected static final int SCREEN_WIDTH = 900;
-    protected static final int SCREEN_HEIGHT = 600;
+    private static final int SCREEN_WIDTH = 900;
+    private static final int SCREEN_HEIGHT = 600;
 
     private String buyersStore;
     private String suppliersStore;

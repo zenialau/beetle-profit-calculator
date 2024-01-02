@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 // buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
 public class BuyersPanel extends JPanel implements ActionListener {
     private static final float CENTER = 0.5F;
-    private static final int BUYERS_BUTTON_HEIGHT = 100;
+    private static final int BUYERS_BUTTON_HEIGHT = 50;
 
     private GUISystem system;
 
@@ -32,7 +32,6 @@ public class BuyersPanel extends JPanel implements ActionListener {
     public BuyersPanel(GUISystem system, JPanel container) {
         this.system = system;
         this.container = container;
-        //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // border layout
         this.setLayout(new BorderLayout());
 
         addTitle();
@@ -106,7 +105,6 @@ public class BuyersPanel extends JPanel implements ActionListener {
         rightSpace.setPreferredSize(new Dimension(100, 100));
         this.add(leftSpace, BorderLayout.LINE_START);
         this.add(rightSpace, BorderLayout.LINE_END);
-
     }
 
     // MODIFIES: this
@@ -125,7 +123,7 @@ public class BuyersPanel extends JPanel implements ActionListener {
             CardLayout layout = (CardLayout) container.getLayout();
             layout.show(container, "mainPanel");
         } else if (e.getSource() == addBuyerButton) {
-            //stub
+            new AddBuyerWindow(system);
         }
         // e.getSource() == map.get(key)
     }
