@@ -28,6 +28,7 @@ public class BuyersMap extends TradersMap implements Iterable<Buyer> {
             throw new DuplicateException();
         } else {
             buyersMap.put(buyer, new PurchaseList());
+            notifyObservers();
         }
     }
 

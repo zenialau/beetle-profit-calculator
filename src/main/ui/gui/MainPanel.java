@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
+
 public class MainPanel extends JPanel implements ActionListener {
     protected static final float CENTER = 0.5F;
 
@@ -81,7 +83,7 @@ public class MainPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buyersButton) {
             CardLayout layout = (CardLayout) container.getLayout();
-            layout.show(container, "buyersPanel");
+            layout.show(container, BUYERS_PANEL);
         } else if (e.getSource() == suppliersButton) {
             System.out.println("suppliers");
         } else if (e.getSource() == calculatorButton) {

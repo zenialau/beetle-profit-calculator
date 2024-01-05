@@ -3,21 +3,24 @@ package src.main.ui.gui;
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.inventory.Purchase;
-import src.main.model.inventory.PurchaseList;
+import src.main.model.oberver.Observer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
+
 // buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
-public class BuyersPanel extends JPanel implements ActionListener {
+public class BuyersPanel extends JPanel implements ActionListener, Observer {
     private static final float CENTER = 0.5F;
     private static final int BUYERS_BUTTON_HEIGHT = 50;
 
     private GUISystem system;
 
     private JPanel container;
+    private CardLayout cardLayout;
 
     private JLabel titleLabel;
 
@@ -32,6 +35,7 @@ public class BuyersPanel extends JPanel implements ActionListener {
     public BuyersPanel(GUISystem system, JPanel container) {
         this.system = system;
         this.container = container;
+        this.cardLayout = (CardLayout) container.getLayout();
         this.setLayout(new BorderLayout());
 
         addTitle();
@@ -78,22 +82,45 @@ public class BuyersPanel extends JPanel implements ActionListener {
         int containerHeight = 0;
 
         for (Buyer b : buyers) {
-
             Purchase lastPurchase = buyers.getLastPurchase(b);
             String lastPurchasePrint = "";
             if (lastPurchase != null) {
                 lastPurchasePrint = lastPurchase.toString();
             }
-            //!!! how to get each button to do different things
             JButton buyerButton = new JButton(b.getName() + " ( " + b.getIgAccount() + " ) "
                     + "; Last purchase: " + lastPurchasePrint);
             buyerButton.setMaximumSize(new Dimension(700, BUYERS_BUTTON_HEIGHT));
-            // HashMap?? w/ Key = String, Value = JButton
+
+            makeBuyerPanel(b);
+            setActionListener(buyers, b, buyerButton);
+
             buyersContainer.add(buyerButton);
             containerHeight += BUYERS_BUTTON_HEIGHT;
         }
-
         buyersContainer.setPreferredSize(new Dimension(650, containerHeight));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: create panel for specific buyer
+    private void makeBuyerPanel(Buyer buyer) {
+        System.out.println("make buyer panel for " + buyer.getName());
+
+        SpecificBuyerPanel specPanel = new SpecificBuyerPanel(system, container, buyer);
+        container.add(specPanel);
+        cardLayout.addLayoutComponent(specPanel, buyer.getIgAccount());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: create specific ActionListener for specific button
+    private void setActionListener(BuyersMap buyersMap, Buyer buyer, JButton button) {
+        System.out.println("set action listener for " + buyer.getName());
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(container, buyer.getIgAccount()); // igAccount as constraint
+            }
+        });
     }
 
     // MODIFIES: this
@@ -120,12 +147,15 @@ public class BuyersPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.show(container, "mainPanel");
+            cardLayout.show(container, MAIN_PANEL);
         } else if (e.getSource() == addBuyerButton) {
             new AddBuyerWindow(system);
         }
-        // e.getSource() == map.get(key)
+    }
+
+    @Override
+    public void update() { //!!! (2)
+        //stub
     }
 
 }

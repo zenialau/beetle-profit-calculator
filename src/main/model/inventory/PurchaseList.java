@@ -3,9 +3,10 @@ package src.main.model.inventory;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class PurchaseList {
+public class PurchaseList implements Iterable<Purchase> {
 
     private List<Purchase> purchaseList;
 
@@ -31,6 +32,14 @@ public class PurchaseList {
 
     public int getNumPurchases() {
         return purchaseList.size();
+    }
+
+    public int getNumItems() {
+        int total = 0;
+        for (Purchase p : purchaseList) {
+            total += p.getNumItems();
+        }
+        return total;
     }
 
     public List<Purchase> getPurchaseList() {
@@ -61,6 +70,11 @@ public class PurchaseList {
             jsonArray.put(p.toJson());
         }
         return jsonArray;
+    }
+
+    @Override
+    public Iterator<Purchase> iterator() {
+        return purchaseList.iterator();
     }
 }
 

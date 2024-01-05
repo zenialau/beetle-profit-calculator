@@ -6,6 +6,9 @@ import java.awt.*;
 // represents the container that stores all the panels for CardLayout
 public class PanelsContainer {
 
+    public final static String MAIN_PANEL = "mainPanel";
+    public final static String BUYERS_PANEL = "buyersPanel";
+
     private GUISystem system;
 
     private JPanel container;
@@ -27,12 +30,14 @@ public class PanelsContainer {
     // EFFECTS: set up sub-panels in container
     private void setupPanels() {
         setupMainPanel();
-        setupBuyersPanel();
-        //...
         container.add(mainPanel);
+        cardLayout.addLayoutComponent(mainPanel, MAIN_PANEL);
+
+        setupBuyersPanel();
         container.add(buyersPanel);
-        cardLayout.addLayoutComponent(mainPanel, "mainPanel");
-        cardLayout.addLayoutComponent(buyersPanel, "buyersPanel");
+        cardLayout.addLayoutComponent(buyersPanel, BUYERS_PANEL);
+        //...
+
     }
 
     // MODIFIES: this
@@ -45,6 +50,7 @@ public class PanelsContainer {
     // EFFECTS: initialize and set up buyersPanel
     private void setupBuyersPanel() {
         buyersPanel = new BuyersPanel(this.system, container);
+        system.getBuyersMap().addObserver(buyersPanel);
     }
 
     public JPanel getContainer() {

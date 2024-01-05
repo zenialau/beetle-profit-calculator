@@ -37,4 +37,21 @@ public class PurchaseListTest extends ModelTest {
         assertEquals(60, testList.getAmountPurchased());
     }
 
+    @Test
+    void testGetNumItemsOneEach() {
+        testList.addPurchase(testPurchase1);
+        testList.addPurchase(testPurchase2);
+        assertEquals(2, testList.getNumItems());
+    }
+
+    @Test
+    void testGetNumItemsMultipleEach() {
+        testPurchase1.addItem(i1);
+        testPurchase1.addItem(i2); // 3 items in testPurchase1
+        testPurchase2.addItem(i1); // 2 items in testPurchase2
+        testList.addPurchase(testPurchase1);
+        testList.addPurchase(testPurchase2);
+        assertEquals(5, testList.getNumItems());
+    }
+
 }

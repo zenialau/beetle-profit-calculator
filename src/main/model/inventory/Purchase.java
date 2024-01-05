@@ -6,10 +6,11 @@ import src.main.persistence.Writable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 // represents a one time purchase with 1 or more InventoryItem
-public class Purchase implements Writable {
+public class Purchase implements Writable, Iterable<InventoryItem> {
     private LocalDate purchaseDate;
     private List<InventoryItem> items;
 
@@ -73,4 +74,8 @@ public class Purchase implements Writable {
         return "[" + purchaseDate.toString() + "] " + items.get(0).toString();
     }
 
+    @Override
+    public Iterator<InventoryItem> iterator() {
+        return items.iterator();
+    }
 }
