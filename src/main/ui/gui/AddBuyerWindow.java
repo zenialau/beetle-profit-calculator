@@ -146,6 +146,7 @@ public class AddBuyerWindow implements ActionListener {
             throw new InvalidBuyerException();
         } else {
             buyers.addBuyer(newBuyer);
+            frame.dispose();
         }
     }
 

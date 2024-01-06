@@ -26,6 +26,7 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
 
     private JPanel buyersContainer;
     private JScrollPane scrollPane;
+    private int buyersContainerHeight;
 
     private JPanel buttonPanel;
     private JButton backButton;
@@ -79,7 +80,7 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
     // EFFECTS: add buyers as buttons to buyersContainer
     private void addBuyers() {
         BuyersMap buyers = system.getBuyersMap();
-        int containerHeight = 0;
+        buyersContainerHeight = 0;
 
         for (Buyer b : buyers) {
             Purchase lastPurchase = buyers.getLastPurchase(b);
@@ -87,17 +88,24 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
             if (lastPurchase != null) {
                 lastPurchasePrint = lastPurchase.toString();
             }
-            JButton buyerButton = new JButton(b.getName() + " ( " + b.getIgAccount() + " ) "
-                    + "; Last purchase: " + lastPurchasePrint);
-            buyerButton.setMaximumSize(new Dimension(700, BUYERS_BUTTON_HEIGHT));
-
-            makeBuyerPanel(b);
-            setActionListener(buyers, b, buyerButton);
-
-            buyersContainer.add(buyerButton);
-            containerHeight += BUYERS_BUTTON_HEIGHT;
+            addBuyerButton(b, lastPurchasePrint);
         }
-        buyersContainer.setPreferredSize(new Dimension(650, containerHeight));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: make a button for the specific buyer and add it to buyersContainer
+    private void addBuyerButton(Buyer b, String lastPurchasePrint) {
+        JButton buyerButton = new JButton(b.getName() + " ( " + b.getIgAccount() + " ) "
+                + "; Last purchase: " + lastPurchasePrint);
+        buyerButton.setMaximumSize(new Dimension(700, BUYERS_BUTTON_HEIGHT));
+
+        makeBuyerPanel(b);
+        setActionListener(b, buyerButton);
+
+        buyersContainer.add(buyerButton);
+        buyersContainerHeight += BUYERS_BUTTON_HEIGHT;
+
+        buyersContainer.setPreferredSize(new Dimension(650, buyersContainerHeight));
     }
 
     // MODIFIES: this
@@ -112,7 +120,7 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
 
     // MODIFIES: this
     // EFFECTS: create specific ActionListener for specific button
-    private void setActionListener(BuyersMap buyersMap, Buyer buyer, JButton button) {
+    private void setActionListener(Buyer buyer, JButton button) {
         System.out.println("set action listener for " + buyer.getName());
 
         button.addActionListener(new ActionListener() {
@@ -153,9 +161,11 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates this panel whenever a buyer is added
     @Override
-    public void update() { //!!! (2)
-        //stub
+    public void update(Buyer buyer) {
+        addBuyerButton(buyer, "");
     }
 
 }

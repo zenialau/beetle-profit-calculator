@@ -1,5 +1,6 @@
 package src.main.model.oberver;
 
+import src.main.model.company.Buyer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,12 @@ public abstract class Observable {
         observers.remove(o);
     }
 
-    protected void notifyObservers() {
+    protected void notifyObservers(Buyer buyer) {
         for (Observer o : observers) {
-            o.update();
+            o.update(buyer);
         }
     }
+
+    //protected void notifyObservers(Purchase purchase)
 
 }
