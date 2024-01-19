@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static src.main.ui.gui.GUISystem.PLAIN_20_FONT;
+import static src.main.ui.gui.GUISystem.TITLE_FONT;
 import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
 
 public class MainPanel extends JPanel implements ActionListener {
@@ -39,7 +41,7 @@ public class MainPanel extends JPanel implements ActionListener {
     private void addTitle() {
         titleLabel = new JLabel("etern_mology");
 
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 26));
+        titleLabel.setFont(TITLE_FONT);
         titleLabel.setAlignmentX(CENTER);
 
         this.add(titleLabel);
@@ -54,9 +56,9 @@ public class MainPanel extends JPanel implements ActionListener {
         suppliersButton = new JButton("Suppliers");
         calculatorButton = new JButton("Profit Calculator");
 
-        buyersButton.setFont(new Font("Serif", Font.PLAIN, 20));
-        suppliersButton.setFont(new Font("Serif", Font.PLAIN, 20));
-        calculatorButton.setFont(new Font("Serif", Font.PLAIN, 20));
+        buyersButton.setFont(PLAIN_20_FONT);
+        suppliersButton.setFont(PLAIN_20_FONT);
+        calculatorButton.setFont(PLAIN_20_FONT);
 
         buyersButton.setMaximumSize(maxDimension);
         suppliersButton.setMaximumSize(maxDimension);

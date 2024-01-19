@@ -114,6 +114,7 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
         System.out.println("make buyer panel for " + buyer.getName());
 
         SpecificBuyerPanel specPanel = new SpecificBuyerPanel(system, container, buyer);
+        system.getBuyersMap().addObserver(specPanel);
         container.add(specPanel);
         cardLayout.addLayoutComponent(specPanel, buyer.getIgAccount());
     }
@@ -166,6 +167,11 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
     @Override
     public void update(Buyer buyer) {
         addBuyerButton(buyer, "");
+    }
+
+    @Override
+    public void update(Purchase purchase) {
+        // do nothing
     }
 
 }

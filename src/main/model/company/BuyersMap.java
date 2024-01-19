@@ -39,6 +39,7 @@ public class BuyersMap extends TradersMap implements Iterable<Buyer> {
         PurchaseList pl = getPurchaseList(buyer);
         pl.addPurchase(purchase);
         buyersMap.put(buyer, pl);
+        notifyObservers(purchase);
     }
 
     // EFFECTS: return the PurchaseList of the specified buyer

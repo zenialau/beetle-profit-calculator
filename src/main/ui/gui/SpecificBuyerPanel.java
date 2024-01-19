@@ -4,6 +4,7 @@ import src.main.model.company.Buyer;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
+import src.main.model.oberver.Observer;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -17,9 +18,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
+import static src.main.ui.gui.GUISystem.PLAIN_20_FONT;
+import static src.main.ui.gui.GUISystem.TITLE_FONT;
 import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
 
-public class SpecificBuyerPanel extends JPanel implements ActionListener {
+public class SpecificBuyerPanel extends JPanel implements ActionListener, Observer {
     private static final float CENTER = 0.5F;
     private static final String[] COLUMN_NAMES = {"Date", "Name", "Description", "Size (mm)",
                                                     "Quality", "Comment", "Price (CAD)"};
@@ -100,7 +103,7 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: set up purchaseTable
     private void setupTable() {
-        purchasesTable.setFont(new Font("Serif", Font.PLAIN, 18));
+        purchasesTable.setFont(PLAIN_20_FONT);
         purchasesTable.setRowHeight(25);
         //setColumnWidth();
         setNotEditable();
@@ -126,8 +129,7 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener {
         DefaultTableModel tableModel = new DefaultTableModel(data, COLUMN_NAMES) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
+                return false; //all cells false
             }
         };
         purchasesTable.setModel(tableModel);
@@ -178,7 +180,7 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener {
     // EFFECTS: add title label to this panel
     private void addTitle() { //!!! also display igAccount and address
         titleLabel = new JLabel(buyer.getName());
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 26));
+        titleLabel.setFont(TITLE_FONT);
         titleLabel.setAlignmentX(CENTER);
         titleLabel.setPreferredSize(new Dimension(600, 50));
         this.add(titleLabel, BorderLayout.PAGE_START);
@@ -189,8 +191,18 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener {
         if (e.getSource() == backButton) {
             cardLayout.show(container, BUYERS_PANEL);
         } else if (e.getSource() == addPurchaseButton) {
-            System.out.println("Add purchase clicked.");
-            //!!! new add purchase window (similar to add buyer)
+            new AddPurchaseWindow(system, buyer);
         }
+    }
+
+    @Override
+    public void update(Buyer buyer) {
+        // do nothing
+    }
+
+    @Override
+    public void update(Purchase purchase) { // does not update right away, need to click back and come back to see update
+        purchasesContainer.remove(purchasesTable);
+        addPurchaseList();
     }
 }

@@ -34,6 +34,11 @@ public class Purchase implements Writable, Iterable<InventoryItem> {
         return total;
     }
 
+    // EFFECTS: return true is there are no items is this purchase
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
     // EFFECTS: return the number of items in this purchase
     public int getNumItems() {
         return items.size();

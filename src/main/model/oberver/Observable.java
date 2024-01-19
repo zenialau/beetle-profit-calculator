@@ -1,6 +1,7 @@
 package src.main.model.oberver;
 
 import src.main.model.company.Buyer;
+import src.main.model.inventory.Purchase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,10 @@ public abstract class Observable {
         }
     }
 
-    //protected void notifyObservers(Purchase purchase)
+    protected void notifyObservers(Purchase purchase) {
+        for (Observer o : observers) {
+            o.update(purchase);
+        }
+    }
 
 }
