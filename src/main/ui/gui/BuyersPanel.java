@@ -111,8 +111,6 @@ public class BuyersPanel extends JPanel implements ActionListener, BuyerObserver
     // MODIFIES: this
     // EFFECTS: create panel for specific buyer
     private void makeBuyerPanel(Buyer buyer) {
-        System.out.println("make buyer panel for " + buyer.getName());
-
         SpecificBuyerPanel specPanel = new SpecificBuyerPanel(system, container, buyer);
         system.getBuyersMap().addObserver(specPanel);
         container.add(specPanel);
@@ -122,8 +120,6 @@ public class BuyersPanel extends JPanel implements ActionListener, BuyerObserver
     // MODIFIES: this
     // EFFECTS: create specific ActionListener for specific button
     private void setActionListener(Buyer buyer, JButton button) {
-        System.out.println("set action listener for " + buyer.getName());
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

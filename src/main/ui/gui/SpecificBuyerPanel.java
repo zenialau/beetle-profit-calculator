@@ -174,8 +174,8 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Purcha
 
     // MODIFIES: this
     // EFFECTS: add title label to this panel
-    private void addTitle() { //!!! also display igAccount and address
-        titleLabel = new JLabel(buyer.getName());
+    private void addTitle() {
+        titleLabel = new JLabel("   " + buyer.getName() + " [ " + buyer.getIgAccount() + " ] : " + buyer.getAddress());
         titleLabel.setFont(TITLE_FONT);
         titleLabel.setAlignmentX(CENTER);
         titleLabel.setPreferredSize(new Dimension(600, 50));
