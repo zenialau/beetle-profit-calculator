@@ -3,7 +3,7 @@ package src.main.ui.gui;
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.inventory.Purchase;
-import src.main.model.oberver.Observer;
+import src.main.model.oberver.BuyerObserver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
 
 // buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
-public class BuyersPanel extends JPanel implements ActionListener, Observer {
+public class BuyersPanel extends JPanel implements ActionListener, BuyerObserver {
     private static final float CENTER = 0.5F;
     private static final int BUYERS_BUTTON_HEIGHT = 50;
 
@@ -167,11 +167,6 @@ public class BuyersPanel extends JPanel implements ActionListener, Observer {
     @Override
     public void update(Buyer buyer) {
         addBuyerButton(buyer, "");
-    }
-
-    @Override
-    public void update(Purchase purchase) {
-        // do nothing
     }
 
 }

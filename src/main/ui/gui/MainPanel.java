@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static src.main.ui.gui.GUISystem.PLAIN_20_FONT;
+import static src.main.ui.gui.GUISystem.PLAIN_18_FONT;
 import static src.main.ui.gui.GUISystem.TITLE_FONT;
 import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
 
@@ -56,9 +56,9 @@ public class MainPanel extends JPanel implements ActionListener {
         suppliersButton = new JButton("Suppliers");
         calculatorButton = new JButton("Profit Calculator");
 
-        buyersButton.setFont(PLAIN_20_FONT);
-        suppliersButton.setFont(PLAIN_20_FONT);
-        calculatorButton.setFont(PLAIN_20_FONT);
+        buyersButton.setFont(PLAIN_18_FONT);
+        suppliersButton.setFont(PLAIN_18_FONT);
+        calculatorButton.setFont(PLAIN_18_FONT);
 
         buyersButton.setMaximumSize(maxDimension);
         suppliersButton.setMaximumSize(maxDimension);

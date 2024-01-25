@@ -13,7 +13,7 @@ import java.io.IOException;
 public class GUISystem {
 
     public static final Font TITLE_FONT = new Font("Serif", Font.PLAIN, 26);
-    public static final Font PLAIN_20_FONT = new Font("Serif", Font.PLAIN, 18);
+    public static final Font PLAIN_18_FONT = new Font("Serif", Font.PLAIN, 18);
 
     private static final String BUYERS_JSON_STORE = "./data/testGUIBuyers.json"; // "./data/buyers.json"
     private static final String SUPPLIERS_JSON_STORE = "./data/testGUISuppliers.json"; //"./data/suppliers.json"

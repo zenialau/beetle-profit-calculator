@@ -66,13 +66,22 @@ public class InventoryItem implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("description", description);
-        json.put("size", Double.toString(size));
-        json.put("quality", quality);
-        json.put("comment", comment);
-        json.put("price", Double.toString(price));
+        put(json, "name", name);
+        put(json, "description", description);
+        put(json, "size", Double.toString(size));
+        put(json, "quality", quality);
+        put(json, "comment", comment);
+        put(json, "price", Double.toString(price));
+
         return json;
+    }
+
+    private void put(JSONObject json, String key, Object value) {
+        if (value == null) {
+            json.put(key, "");
+        } else {
+            json.put(key, value);
+        }
     }
 
     // EFFECTS: return a String representation of this item

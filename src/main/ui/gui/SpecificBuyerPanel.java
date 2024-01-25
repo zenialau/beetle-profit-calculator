@@ -4,25 +4,21 @@ import src.main.model.company.Buyer;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
-import src.main.model.oberver.Observer;
+import src.main.model.oberver.PurchaseObserver;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-import static src.main.ui.gui.GUISystem.PLAIN_20_FONT;
+import static src.main.ui.gui.GUISystem.PLAIN_18_FONT;
 import static src.main.ui.gui.GUISystem.TITLE_FONT;
 import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
 
-public class SpecificBuyerPanel extends JPanel implements ActionListener, Observer {
+public class SpecificBuyerPanel extends JPanel implements ActionListener, PurchaseObserver {
     private static final float CENTER = 0.5F;
     private static final String[] COLUMN_NAMES = {"Date", "Name", "Description", "Size (mm)",
                                                     "Quality", "Comment", "Price (CAD)"};
@@ -103,7 +99,7 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Observ
     // MODIFIES: this
     // EFFECTS: set up purchaseTable
     private void setupTable() {
-        purchasesTable.setFont(PLAIN_20_FONT);
+        purchasesTable.setFont(PLAIN_18_FONT);
         purchasesTable.setRowHeight(25);
         //setColumnWidth();
         setNotEditable();
@@ -196,13 +192,11 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Observ
     }
 
     @Override
-    public void update(Buyer buyer) {
-        // do nothing
-    }
-
-    @Override
-    public void update(Purchase purchase) { // does not update right away, need to click back and come back to see update
+    public void update() {
         purchasesContainer.remove(purchasesTable);
         addPurchaseList();
+        purchasesContainer.setVisible(false); // such that the display updates right away
+        purchasesContainer.setVisible(true);
     }
+
 }

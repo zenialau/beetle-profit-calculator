@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeParseException;
 
-import static src.main.ui.gui.GUISystem.PLAIN_20_FONT;
+import static src.main.ui.gui.GUISystem.PLAIN_18_FONT;
 
 // a new window that allows user to input values and add a new purchase to the buyer specified
 public class AddPurchaseWindow implements ActionListener {
@@ -36,6 +36,10 @@ public class AddPurchaseWindow implements ActionListener {
     private JButton addRowButton;
     private JButton addPurchaseButton;
 
+    private JLabel noItemsWarning;
+    private JLabel invalidInputWarning;
+    private JLabel invalidItemWarning;
+
     // EFFECTS: constructs a popup window to add new purchase to buyer
     public AddPurchaseWindow(GUISystem system, Buyer buyer) {
         this.system = system;
@@ -55,6 +59,7 @@ public class AddPurchaseWindow implements ActionListener {
         addInputTable();
         addAddRowButton();
         addAddPurchaseButton();
+        addWarningLabels();
         frame.add(panel);
     }
 
@@ -62,7 +67,7 @@ public class AddPurchaseWindow implements ActionListener {
     // EFFECTS: add dateLabel and dateField to panel
     private void addDateField() {
         dateLabel = new JLabel("Purchase date: [YYYY-MM-DD]");
-        dateLabel.setFont(PLAIN_20_FONT);
+        dateLabel.setFont(PLAIN_18_FONT);
         springLayout.putConstraint(SpringLayout.WEST, dateLabel, 30, SpringLayout.WEST, panel);
         springLayout.putConstraint(SpringLayout.NORTH, dateLabel, 20, SpringLayout.NORTH, panel);
         panel.add(dateLabel);
@@ -120,6 +125,32 @@ public class AddPurchaseWindow implements ActionListener {
     }
 
     // MODIFIES: this
+    // EFFECTS: add warning labels to panel
+    private void addWarningLabels() {
+        noItemsWarning = new JLabel("bruh empty purchase??");
+        invalidInputWarning = new JLabel("uhhhh enter a NUMBER for size/price");
+        invalidItemWarning = new JLabel("at least gimme a name and price");
+
+        setupWarningLabel(noItemsWarning);
+        setupWarningLabel(invalidInputWarning);
+        setupWarningLabel(invalidItemWarning);
+
+        panel.add(noItemsWarning);
+        panel.add(invalidInputWarning);
+        panel.add(invalidItemWarning);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set up the warning labels
+    private void setupWarningLabel(JLabel label) {
+        label.setFont(PLAIN_18_FONT);
+        label.setForeground(Color.RED);
+        springLayout.putConstraint(SpringLayout.WEST, label, 30, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.SOUTH, label, -25, SpringLayout.SOUTH, panel);
+        label.setVisible(false);
+    }
+
+    // MODIFIES: this
     // EFFECTS: set up JFrame window
     private void setupFrame() {
         frame = new JFrame();
@@ -133,25 +164,27 @@ public class AddPurchaseWindow implements ActionListener {
         if (e.getSource() == addRowButton) {
             addRow();
         } else if (e.getSource() == addPurchaseButton) {
+            resetWarnings();
             try {
                 addPurchase();
             } catch (DateTimeParseException ex) {
-                System.out.println("Please enter a valid date according to the format provided.");
-                // when the date input is not valid
+                dateField.setBorder(BorderFactory.createLineBorder(Color.RED));
             } catch (NumberFormatException ex) {
-                System.out.println("Invalid input values for size or price!");
-                // when size or price have non-numeric input values
+                invalidInputWarning.setVisible(true);
             } catch (InvalidItemException ex) {
-                System.out.println("Invalid item! Item needs at least a name and a price!");
-                //...
+                invalidItemWarning.setVisible(true);
             } catch (NoItemException ex) {
-                System.out.println("There are no items in this purchase.");
-                //...
+                noItemsWarning.setVisible(true);
             }
-//            catch (ClassCastException ex) { // when try to parse price input to double
-//                System.out.println("Double check input values.");
-//            }
         }
+    }
+
+    // EFFECTS: reset the labels and fields to default
+    private void resetWarnings() {
+        dateField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        noItemsWarning.setVisible(false);
+        invalidInputWarning.setVisible(false);
+        invalidItemWarning.setVisible(false);
     }
 
     // MODIFIES: this
@@ -160,47 +193,32 @@ public class AddPurchaseWindow implements ActionListener {
         BuyersMap buyersMap = system.getBuyersMap();
         Purchase purchase = new Purchase();
 
-        // 1. check that dateField is not empty (or just try catch), blank also throw DateTimeParseException
-        //    -> make dateField border red if empty
-        // 2. try to set purchase date (might be wrong format)
-        //    -> if caught DateTimeParseException, make dateField border red AND show warning label
-        //    -> "Enter a valid date according to the format provided."
-        String dateInput = dateField.getText();
-        purchase.setPurchaseDate(dateInput); //throws DateTimeParseException if invalid
+        setPurchaseDate(purchase);
+        addItemsToPurchase(purchase);
+        if (purchase.isEmpty()) {
+            throw new NoItemException();
+        }
+        buyersMap.addPurchase(this.buyer, purchase);
 
-        // 3. make items according to user input values
-        //    (only create item if both name and price are present in that row)
-        //    -> inputTable.getModel().getValueAt(row_index, col_index);
-        //    -> model.getValueAt(row_index, col_index);
+        frame.dispose();
+    }
+
+    // MODIFIES: purchase
+    // EFFECTS: constructs items according to user input values and add them to purchase
+    //          throws InvalidItemException if a non-empty row doesn't contain a name or a price
+    //          throws NumberFormatException if something other than a double is entered for size or price
+    private void addItemsToPurchase(Purchase purchase) throws InvalidItemException, NumberFormatException {
         int rowNum = inputTableModel.getRowCount();
-        System.out.println(rowNum);
         for (int r = 0; r < rowNum; r++) {
-            String name = (String) inputTableModel.getValueAt(r, 0);
-            String desc = (String) inputTableModel.getValueAt(r, 1);
+            String name = getUserInputString(r, 0);
+            String desc = getUserInputString(r, 1);
+            Double size = getUserInputDouble(r, 2);
+            String quality = getUserInputString(r, 3);
+            String comment = getUserInputString(r, 4);
+            Double price = getUserInputDouble(r, 5);
 
-            String sizeInput = (String) inputTableModel.getValueAt(r, 2);
-            Double size = null;
-            if (!isNullOrBlank(sizeInput)) {
-                size = Double.parseDouble(sizeInput); // throws NumberFormatException
-            }
-
-            String quality = (String) inputTableModel.getValueAt(r, 3);
-            String comment = (String) inputTableModel.getValueAt(r, 4);
-
-            String priceInput = (String) inputTableModel.getValueAt(r, 5);
-            Double price = null;
-            if (!isNullOrBlank(priceInput)) {
-                price = Double.parseDouble(priceInput); // throws NumberFormatException
-            }
-
-            System.out.println(name);
-            System.out.println(desc);
-            System.out.println(size);
-            System.out.println(quality);
-            System.out.println(comment);
-            System.out.println(price);
-
-            if (!isEmptyRow(r)) {
+            String priceInput = getUserInputString(r, 5);
+            if (!isEmptyRow(r)) { // add item if row is not empty
                 if (isNullOrBlank(name) || isNullOrBlank(priceInput)) {
                     throw new InvalidItemException();
                 }
@@ -211,17 +229,28 @@ public class AddPurchaseWindow implements ActionListener {
                 purchase.addItem(item);
             }
         }
+    }
 
-        // 4. add created items to purchase
-        //    -> if 0 items, throw NoItemException
-        if (purchase.isEmpty()) {
-            throw new NoItemException();
+    // EFFECTS: return a String representation of the user inputted value at (row, column)
+    private String getUserInputString(int row, int column) {
+        String input = (String) inputTableModel.getValueAt(row, column);
+        return input;
+    }
+
+    private Double getUserInputDouble(int row, int column) throws NumberFormatException {
+        String numInput = getUserInputString(row, column);
+        Double num = null;
+        if (!isNullOrBlank(numInput)) {
+            num = Double.parseDouble(numInput); // throws NumberFormatException
         }
+        return num;
+    }
 
-        // 5. add purchase to buyersMap for this.buyer
-        buyersMap.addPurchase(this.buyer, purchase);
-        System.out.println("purchase succuessfully added!");
-        //dispose window??
+    // MODIFIES: purchase
+    // EFFECTS: if the date inputted is invalid or blank, throw DateTimeParseException, else set purchase date
+    private void setPurchaseDate(Purchase purchase) throws DateTimeParseException {
+        String dateInput = dateField.getText();
+        purchase.setPurchaseDate(dateInput);
     }
 
     // EFFECTS: return true if all the inputs in the given row is empty/blank

@@ -7,29 +7,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Observable {
-    private List<Observer> observers;
+    private List<BuyerObserver> buyerObservers;
+    private List<PurchaseObserver> purchaseObservers;
 
     public Observable() {
-        observers = new ArrayList<>();
+        buyerObservers = new ArrayList<>();
+        purchaseObservers = new ArrayList<>();
     }
 
-    public void addObserver(Observer o) {
-        observers.add(o);
+    public void addObserver(BuyerObserver o) {
+        buyerObservers.add(o);
     }
 
-    public void removeObserver(Observer o) {
-        observers.remove(o);
+    public void addObserver(PurchaseObserver o) {
+        purchaseObservers.add(o);
+    }
+
+    public void removeObserver(BuyerObserver o) {
+        buyerObservers.remove(o);
+    }
+
+    public void removeObserver(PurchaseObserver o) {
+        purchaseObservers.remove(o);
     }
 
     protected void notifyObservers(Buyer buyer) {
-        for (Observer o : observers) {
+        for (BuyerObserver o : buyerObservers) {
             o.update(buyer);
         }
     }
 
-    protected void notifyObservers(Purchase purchase) {
-        for (Observer o : observers) {
-            o.update(purchase);
+    protected void notifyObservers() {
+        for (PurchaseObserver o : purchaseObservers) {
+            o.update();
         }
     }
 
