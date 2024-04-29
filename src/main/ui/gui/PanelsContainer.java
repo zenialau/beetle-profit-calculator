@@ -1,5 +1,7 @@
 package src.main.ui.gui;
 
+import src.main.ui.gui.traders.BuyersPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,6 +10,7 @@ public class PanelsContainer {
 
     public final static String MAIN_PANEL = "mainPanel";
     public final static String BUYERS_PANEL = "buyersPanel";
+    public final static String SUPPLIERS_PANEL = "suppliersPanel";
 
     private GUISystem system;
 
@@ -16,6 +19,7 @@ public class PanelsContainer {
 
     private MainPanel mainPanel;
     private BuyersPanel buyersPanel;
+//    private SuppliersPanel suppliersPanel;
 
     // EFFECTS: set up container and panels
     public PanelsContainer(GUISystem system) {
@@ -36,7 +40,10 @@ public class PanelsContainer {
         setupBuyersPanel();
         container.add(buyersPanel);
         cardLayout.addLayoutComponent(buyersPanel, BUYERS_PANEL);
-        //...
+
+//        setupSuppliersPanel();
+//        container.add(suppliersPanel);
+//        cardLayout.addLayoutComponent(suppliersPanel, SUPPLIERS_PANEL);
 
     }
 
@@ -51,6 +58,12 @@ public class PanelsContainer {
     private void setupBuyersPanel() {
         buyersPanel = new BuyersPanel(this.system, container);
         system.getBuyersMap().addObserver(buyersPanel);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize and set up suppliersPanel
+    private void setupSuppliersPanel() {
+        //!!!
     }
 
     public JPanel getContainer() {

@@ -1,9 +1,11 @@
-package src.main.ui.gui;
+package src.main.ui.gui.traders;
 
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.inventory.Purchase;
-import src.main.model.oberver.BuyerObserver;
+import src.main.ui.gui.AddBuyerWindow;
+import src.main.ui.gui.GUISystem;
+import src.main.ui.gui.SpecificBuyerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,67 +15,17 @@ import java.awt.event.ActionListener;
 import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
 
 // buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
-public class BuyersPanel extends JPanel implements ActionListener, BuyerObserver {
-    private static final float CENTER = 0.5F;
-    private static final int BUYERS_BUTTON_HEIGHT = 50;
-
-    private GUISystem system;
-
-    private JPanel container;
-    private CardLayout cardLayout;
-
-    private JLabel titleLabel;
-
-    private JPanel buyersContainer;
-    private JScrollPane scrollPane;
-    private int buyersContainerHeight;
-
-    private JPanel buttonPanel;
-    private JButton backButton;
-    private JButton addBuyerButton;
+public class BuyersPanel extends TradersPanel {
 
     // EFFECTS: constructs the buyers panel
     public BuyersPanel(GUISystem system, JPanel container) {
-        this.system = system;
-        this.container = container;
-        this.cardLayout = (CardLayout) container.getLayout();
-        this.setLayout(new BorderLayout());
+        super(system, container);
 
-        addTitle();
+        addTitle("Customers");
         addSpace();
         addScrollPane();
-        addButtons();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: add "back" button and "add buyer" button
-    private void addButtons() {
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-        buttonPanel.setPreferredSize(new Dimension(600, 70));
-
-        backButton = new JButton("< back");
-        addBuyerButton = new JButton("Add Buyer");
-        backButton.addActionListener(this);
-        addBuyerButton.addActionListener(this);
-        buttonPanel.add(backButton);
-        buttonPanel.add(addBuyerButton);
-
-        this.add(buttonPanel, BorderLayout.PAGE_END);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: add a scroll pane containing buttons of buyers
-    private void addScrollPane() {
-        buyersContainer = new JPanel();
-        buyersContainer.setBackground(Color.blue);
-        buyersContainer.setLayout(new BoxLayout(buyersContainer, BoxLayout.Y_AXIS));
-
-        scrollPane = new JScrollPane(buyersContainer);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        this.add(scrollPane, BorderLayout.CENTER);
-
         addBuyers();
+        addButtons();
     }
 
     // MODIFIES: this
@@ -126,27 +78,6 @@ public class BuyersPanel extends JPanel implements ActionListener, BuyerObserver
                 cardLayout.show(container, buyer.getIgAccount()); // igAccount as constraint
             }
         });
-    }
-
-    // MODIFIES: this
-    // EFFECTS: add space to the left and right of scroll pane
-    private void addSpace() {
-        JPanel leftSpace = new JPanel();
-        JPanel rightSpace = new JPanel();
-        leftSpace.setPreferredSize(new Dimension(100, 100));
-        rightSpace.setPreferredSize(new Dimension(100, 100));
-        this.add(leftSpace, BorderLayout.LINE_START);
-        this.add(rightSpace, BorderLayout.LINE_END);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: add title label to this panel
-    private void addTitle() {
-        titleLabel = new JLabel("Buyers");
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 26));
-        titleLabel.setAlignmentX(CENTER);
-        titleLabel.setPreferredSize(new Dimension(600, 50));
-        this.add(titleLabel, BorderLayout.PAGE_START);
     }
 
     @Override

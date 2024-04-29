@@ -77,7 +77,7 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Purcha
     // EFFECTS: add the PurchaseList of buyer as a table
     private void addScrollPane() {
         purchasesContainer = new JPanel();
-        purchasesContainer.setBackground(Color.blue);
+        purchasesContainer.setBackground(Color.lightGray);
         purchasesContainer.setLayout(new BoxLayout(purchasesContainer, BoxLayout.Y_AXIS));
 
         scrollPane = new JScrollPane(purchasesContainer);
