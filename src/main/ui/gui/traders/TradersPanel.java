@@ -1,16 +1,18 @@
 package src.main.ui.gui.traders;
 
-import src.main.model.oberver.BuyerObserver;
 import src.main.ui.gui.GUISystem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract class TradersPanel extends JPanel implements ActionListener, BuyerObserver {
+// abstract parent class of BuyersPanel and SuppliersPanel
+public abstract class TradersPanel extends JPanel implements ActionListener {
 
     protected static final float CENTER = 0.5F;
     protected static final int BUYERS_BUTTON_HEIGHT = 50;
+    protected static final int BUTTON_WIDTH = 700;
+    protected static final int CONTAINER_WIDTH = 650;
 
     protected GUISystem system;
 
@@ -19,13 +21,13 @@ public abstract class TradersPanel extends JPanel implements ActionListener, Buy
 
     protected JLabel titleLabel;
 
-    protected JPanel buyersContainer;
+    protected JPanel tradersContainer;
     protected JScrollPane scrollPane;
-    protected int buyersContainerHeight;
+    protected int tradersContainerHeight;
 
     protected JPanel buttonPanel;
     protected JButton backButton;
-    protected JButton addBuyerButton;
+    protected JButton addTraderButton;
 
     // EFFECTS: constructs the buyers panel
     public TradersPanel(GUISystem system, JPanel container) {
@@ -35,19 +37,23 @@ public abstract class TradersPanel extends JPanel implements ActionListener, Buy
         this.setLayout(new BorderLayout());
     }
 
+    protected void setButtonDimensions(JButton button) {
+        button.setMaximumSize(new Dimension(BUTTON_WIDTH, BUYERS_BUTTON_HEIGHT));
+    }
+
     // MODIFIES: this
     // EFFECTS: add "back" button and "add buyer" button
-    protected void addButtons() {
+    protected void addButtons(String trader) {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.setPreferredSize(new Dimension(600, 70));
 
         backButton = new JButton("< back");
-        addBuyerButton = new JButton("Add Buyer");
+        addTraderButton = new JButton("Add " + trader);
         backButton.addActionListener(this);
-        addBuyerButton.addActionListener(this);
+        addTraderButton.addActionListener(this);
         buttonPanel.add(backButton);
-        buttonPanel.add(addBuyerButton);
+        buttonPanel.add(addTraderButton);
 
         this.add(buttonPanel, BorderLayout.PAGE_END);
     }
@@ -55,11 +61,11 @@ public abstract class TradersPanel extends JPanel implements ActionListener, Buy
     // MODIFIES: this
     // EFFECTS: add a scroll pane containing buttons of buyers
     protected void addScrollPane() {
-        buyersContainer = new JPanel();
-        buyersContainer.setBackground(Color.lightGray);
-        buyersContainer.setLayout(new BoxLayout(buyersContainer, BoxLayout.Y_AXIS));
+        tradersContainer = new JPanel();
+        tradersContainer.setBackground(Color.lightGray);
+        tradersContainer.setLayout(new BoxLayout(tradersContainer, BoxLayout.Y_AXIS));
 
-        scrollPane = new JScrollPane(buyersContainer);
+        scrollPane = new JScrollPane(tradersContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane, BorderLayout.CENTER);
     }

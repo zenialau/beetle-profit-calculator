@@ -3,7 +3,8 @@ package src.main.ui.gui.traders;
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
 import src.main.model.inventory.Purchase;
-import src.main.ui.gui.AddBuyerWindow;
+import src.main.model.oberver.BuyerObserver;
+import src.main.ui.gui.traders.window.AddBuyerWindow;
 import src.main.ui.gui.GUISystem;
 import src.main.ui.gui.SpecificBuyerPanel;
 
@@ -15,24 +16,23 @@ import java.awt.event.ActionListener;
 import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
 
 // buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
-public class BuyersPanel extends TradersPanel {
+public class BuyersPanel extends TradersPanel implements BuyerObserver {
 
     // EFFECTS: constructs the buyers panel
     public BuyersPanel(GUISystem system, JPanel container) {
         super(system, container);
-
         addTitle("Customers");
         addSpace();
         addScrollPane();
         addBuyers();
-        addButtons();
+        addButtons("Customer");
     }
 
     // MODIFIES: this
-    // EFFECTS: add buyers as buttons to buyersContainer
+    // EFFECTS: add buyers as buttons to tradersContainer
     private void addBuyers() {
         BuyersMap buyers = system.getBuyersMap();
-        buyersContainerHeight = 0;
+        tradersContainerHeight = 0;
 
         for (Buyer b : buyers) {
             Purchase lastPurchase = buyers.getLastPurchase(b);
@@ -45,19 +45,19 @@ public class BuyersPanel extends TradersPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: make a button for the specific buyer and add it to buyersContainer
+    // EFFECTS: make a button for the specific buyer and add it to tradersContainer
     private void addBuyerButton(Buyer b, String lastPurchasePrint) {
         JButton buyerButton = new JButton(b.getName() + " ( " + b.getIgAccount() + " ) "
                 + "; Last purchase: " + lastPurchasePrint);
-        buyerButton.setMaximumSize(new Dimension(700, BUYERS_BUTTON_HEIGHT));
+        setButtonDimensions(buyerButton);
 
         makeBuyerPanel(b);
         setActionListener(b, buyerButton);
 
-        buyersContainer.add(buyerButton);
-        buyersContainerHeight += BUYERS_BUTTON_HEIGHT;
+        tradersContainer.add(buyerButton);
+        tradersContainerHeight += BUYERS_BUTTON_HEIGHT;
 
-        buyersContainer.setPreferredSize(new Dimension(650, buyersContainerHeight));
+        tradersContainer.setPreferredSize(new Dimension(CONTAINER_WIDTH, tradersContainerHeight));
     }
 
     // MODIFIES: this
@@ -84,7 +84,7 @@ public class BuyersPanel extends TradersPanel {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             cardLayout.show(container, MAIN_PANEL);
-        } else if (e.getSource() == addBuyerButton) {
+        } else if (e.getSource() == addTraderButton) {
             new AddBuyerWindow(system);
         }
     }
