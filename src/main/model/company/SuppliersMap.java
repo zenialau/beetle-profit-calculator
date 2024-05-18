@@ -28,6 +28,7 @@ public class SuppliersMap extends TradersMap implements Iterable<Supplier> {
             throw new DuplicateException();
         } else {
             suppliersMap.put(supplier, new PurchaseList());
+            notifyObservers(supplier);
         }
     }
 
@@ -39,6 +40,7 @@ public class SuppliersMap extends TradersMap implements Iterable<Supplier> {
         PurchaseList pl = getPurchaseList(supplier);
         pl.addPurchase(purchase);
         suppliersMap.put((Supplier) supplier, pl);
+        notifyObservers();
     }
 
     // EFFECTS: return the PurchaseList of the specified buyer

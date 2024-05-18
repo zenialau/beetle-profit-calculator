@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import static src.main.ui.gui.GUISystem.PLAIN_18_FONT;
 import static src.main.ui.gui.GUISystem.TITLE_FONT;
 import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
+import static src.main.ui.gui.PanelsContainer.SUPPLIERS_PANEL;
 
 public class MainPanel extends JPanel implements ActionListener {
     protected static final float CENTER = 0.5F;
@@ -87,7 +88,8 @@ public class MainPanel extends JPanel implements ActionListener {
             CardLayout layout = (CardLayout) container.getLayout();
             layout.show(container, BUYERS_PANEL);
         } else if (e.getSource() == suppliersButton) {
-            System.out.println("suppliers");
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.show(container, SUPPLIERS_PANEL);
         } else if (e.getSource() == calculatorButton) {
             System.out.println("calculator");
         }

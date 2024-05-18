@@ -16,7 +16,7 @@ import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
 
 // suppliers screen that shows existing suppliers and allow the option to add supplier or purchase,
 // or go back to main menu
-public class SuppliersPanel extends TradersPanel { //implements SupplierObserver
+public class SuppliersPanel extends TradersPanel implements SupplierObserver { //implements SupplierObserver
 
     // EFFECTS: constructs the suppliers panel
     public SuppliersPanel(GUISystem system, JPanel container) {
@@ -80,8 +80,9 @@ public class SuppliersPanel extends TradersPanel { //implements SupplierObserver
         }
     }
 
-//    @Override
-//    public void update(Supplier supplier) {
-//        addSupplierButton();
-//    }
+    @Override
+    public void update(Supplier supplier) {
+        addSupplierButton(supplier);
+    }
+
 }
