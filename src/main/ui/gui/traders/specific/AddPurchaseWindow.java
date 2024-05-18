@@ -1,4 +1,4 @@
-package src.main.ui.gui;
+package src.main.ui.gui.traders.specific;
 
 import src.main.model.company.Buyer;
 import src.main.model.company.BuyersMap;
@@ -6,6 +6,7 @@ import src.main.model.exception.InvalidItemException;
 import src.main.model.exception.NoItemException;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
+import src.main.ui.gui.GUISystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

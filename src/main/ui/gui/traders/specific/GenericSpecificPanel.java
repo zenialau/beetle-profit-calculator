@@ -1,81 +1,71 @@
-package src.main.ui.gui;
+package src.main.ui.gui.traders.specific;
 
-import src.main.model.company.Buyer;
 import src.main.model.inventory.InventoryItem;
 import src.main.model.inventory.Purchase;
 import src.main.model.inventory.PurchaseList;
-import src.main.model.oberver.PurchaseObserver;
+import src.main.ui.gui.GUISystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
 import static src.main.ui.gui.GUISystem.PLAIN_18_FONT;
 import static src.main.ui.gui.GUISystem.TITLE_FONT;
-import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
 
-public class SpecificBuyerPanel extends JPanel implements ActionListener, PurchaseObserver {
-    private static final float CENTER = 0.5F;
+public class GenericSpecificPanel extends JPanel {
+    protected static final float CENTER = 0.5F;
     private static final String[] COLUMN_NAMES = {"Date", "Name", "Description", "Size (mm)",
-                                                    "Quality", "Comment", "Price (CAD)"};
+            "Quality", "Comment", "Price (CAD)"};
 
-    private GUISystem system;
-    private JPanel container;
-    private CardLayout cardLayout;
-    private Buyer buyer;
-    private PurchaseList purchaseList;
+    protected PurchaseList purchaseList;
 
-    private JLabel titleLabel;
+    protected GUISystem system;
+    protected JPanel container;
+    protected CardLayout cardLayout;
 
-    private JPanel purchasesContainer;
-    private JScrollPane scrollPane;
-    private JTable purchasesTable;
-    private Object[][] data;
+    protected JLabel titleLabel;
+    protected JPanel purchasesContainer;
+    protected JScrollPane scrollPane;
 
-    private JPanel buttonPanel;
-    private JButton backButton;
-    private JButton addPurchaseButton;
+    protected JTable purchasesTable;
+    protected Object[][] data;
 
+    protected JPanel buttonPanel;
+    protected JButton backButton;
+    protected JButton addPurchaseButton;
 
-    public SpecificBuyerPanel(GUISystem system, JPanel container, Buyer buyer) {
+    public GenericSpecificPanel(GUISystem system, JPanel container) {
         this.system = system;
         this.container = container;
         this.cardLayout = (CardLayout) container.getLayout();
-        this.buyer = buyer;
-        this.purchaseList = system.getBuyersMap().getPurchaseList(buyer);
-
         this.setLayout(new BorderLayout());
-
-        addTitle();
-        addSpace();
-        addScrollPane();
-        addButtons();
     }
 
     // MODIFIES: this
-    // EFFECTS: add "back" button and "add buyer" button
-    private void addButtons() {
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-        buttonPanel.setPreferredSize(new Dimension(600, 70));
-
-        backButton = new JButton("< back");
-        addPurchaseButton = new JButton("Add Purchase");
-        backButton.addActionListener(this);
-        addPurchaseButton.addActionListener(this);
-        buttonPanel.add(backButton);
-        buttonPanel.add(addPurchaseButton);
-
-        this.add(buttonPanel, BorderLayout.PAGE_END);
+    // EFFECTS: set up title label and add it to this
+    protected void setupTitle(JLabel titleLabel) {
+        titleLabel.setFont(TITLE_FONT);
+        titleLabel.setAlignmentX(CENTER);
+        titleLabel.setPreferredSize(new Dimension(600, 50));
+        this.add(titleLabel, BorderLayout.PAGE_START);
     }
 
     // MODIFIES: this
-    // EFFECTS: add the PurchaseList of buyer as a table
-    private void addScrollPane() {
+    // EFFECTS: add space to the left and right of scroll pane
+    protected void addSpace() {
+        JPanel leftSpace = new JPanel();
+        JPanel rightSpace = new JPanel();
+        leftSpace.setPreferredSize(new Dimension(50, 100));
+        rightSpace.setPreferredSize(new Dimension(50, 100));
+        this.add(leftSpace, BorderLayout.LINE_START);
+        this.add(rightSpace, BorderLayout.LINE_END);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add the scroll pane (that will contain the purchase list) to this
+    protected void addScrollPane() {
         purchasesContainer = new JPanel();
         purchasesContainer.setBackground(Color.lightGray);
         purchasesContainer.setLayout(new BoxLayout(purchasesContainer, BoxLayout.Y_AXIS));
@@ -83,13 +73,11 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Purcha
         scrollPane = new JScrollPane(purchasesContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane, BorderLayout.CENTER);
-
-        addPurchaseList();
     }
 
     // MODIFIES; this
     // EFFECTS: add PurchaseList of buyer to scrollPane
-    private void addPurchaseList() {
+    protected void addPurchaseList() {
         initData();
         purchasesTable = new JTable(data, COLUMN_NAMES);
         setupTable();
@@ -162,41 +150,30 @@ public class SpecificBuyerPanel extends JPanel implements ActionListener, Purcha
     }
 
     // MODIFIES: this
-    // EFFECTS: add space to the left and right of scroll pane
-    private void addSpace() {
-        JPanel leftSpace = new JPanel();
-        JPanel rightSpace = new JPanel();
-        leftSpace.setPreferredSize(new Dimension(50, 100));
-        rightSpace.setPreferredSize(new Dimension(50, 100));
-        this.add(leftSpace, BorderLayout.LINE_START);
-        this.add(rightSpace, BorderLayout.LINE_END);
+    // EFFECTS: set up buttonPanel
+    protected void setupButtonPanel() {
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.setPreferredSize(new Dimension(600, 70));
     }
 
     // MODIFIES: this
-    // EFFECTS: add title label to this panel
-    private void addTitle() {
-        titleLabel = new JLabel("   " + buyer.getName() + " [ " + buyer.getIgAccount() + " ] : " + buyer.getAddress());
-        titleLabel.setFont(TITLE_FONT);
-        titleLabel.setAlignmentX(CENTER);
-        titleLabel.setPreferredSize(new Dimension(600, 50));
-        this.add(titleLabel, BorderLayout.PAGE_START);
+    // EFFECTS: set up addPurchaseButton
+    protected void setupAddPurchaseButton() {
+        addPurchaseButton = new JButton("Add Purchase");
+//        addPurchaseButton.addActionListener(this);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == backButton) {
-            cardLayout.show(container, BUYERS_PANEL);
-        } else if (e.getSource() == addPurchaseButton) {
-            new AddPurchaseWindow(system, buyer);
-        }
+    // MODIFIES: this
+    // EFFECTS: finish set up buttonPanel
+    protected void finishButtonPanel() {
+        buttonPanel.add(backButton);
+        buttonPanel.add(addPurchaseButton);
+        this.add(buttonPanel, BorderLayout.PAGE_END);
     }
 
-    @Override
-    public void update() {
-        purchasesContainer.remove(purchasesTable);
-        addPurchaseList();
-        purchasesContainer.setVisible(false); // such that the display updates right away
-        purchasesContainer.setVisible(true);
-    }
-
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        new AddPurchaseWindow(system, buyer);
+//    }
 }

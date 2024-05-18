@@ -35,10 +35,11 @@ public class BuyersMap extends TradersMap implements Iterable<Buyer> {
     // REQUIRES: buyer exists in the map
     // MODIFIES: this
     // EFFECTS: add the purchase to the PurchaseList of the specified buyer
-    public void addPurchase(Buyer buyer, Purchase purchase) {
+    @Override
+    public void addPurchase(Trader buyer, Purchase purchase) {
         PurchaseList pl = getPurchaseList(buyer);
         pl.addPurchase(purchase);
-        buyersMap.put(buyer, pl);
+        buyersMap.put((Buyer) buyer, pl);
         notifyObservers();
     }
 

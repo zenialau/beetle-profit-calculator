@@ -8,6 +8,7 @@ import java.util.List;
 
 public abstract class Observable {
     private List<BuyerObserver> buyerObservers;
+    private List<SupplierObserver> supplierObservers;
     private List<PurchaseObserver> purchaseObservers;
 
     public Observable() {
@@ -18,6 +19,8 @@ public abstract class Observable {
     public void addObserver(BuyerObserver o) {
         buyerObservers.add(o);
     }
+
+    public void addObserver(SupplierObserver o) { supplierObservers.add(o); }
 
     public void addObserver(PurchaseObserver o) {
         purchaseObservers.add(o);

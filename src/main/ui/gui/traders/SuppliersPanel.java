@@ -2,7 +2,9 @@ package src.main.ui.gui.traders;
 
 import src.main.model.company.Supplier;
 import src.main.model.company.SuppliersMap;
+import src.main.model.oberver.SupplierObserver;
 import src.main.ui.gui.GUISystem;
+import src.main.ui.gui.traders.specific.SpecificSupplierPanel;
 import src.main.ui.gui.traders.window.AddSupplierWindow;
 
 import javax.swing.*;
@@ -53,7 +55,9 @@ public class SuppliersPanel extends TradersPanel { //implements SupplierObserver
     // EFFECTS: create panel for specific supplier
     private void makeSupplierPanel(Supplier supplier) {
         SpecificSupplierPanel specPanel = new SpecificSupplierPanel(system, container, supplier);
-        //!!!
+        system.getSuppliersMap().addObserver(specPanel);
+        container.add(specPanel);
+        cardLayout.addLayoutComponent(specPanel, supplier.getName());
     }
 
     // MODIFIES: this

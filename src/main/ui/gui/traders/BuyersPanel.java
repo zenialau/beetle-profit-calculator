@@ -6,7 +6,7 @@ import src.main.model.inventory.Purchase;
 import src.main.model.oberver.BuyerObserver;
 import src.main.ui.gui.traders.window.AddBuyerWindow;
 import src.main.ui.gui.GUISystem;
-import src.main.ui.gui.SpecificBuyerPanel;
+import src.main.ui.gui.traders.specific.SpecificBuyerPanel;
 
 import javax.swing.*;
 import java.awt.*;

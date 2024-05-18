@@ -1,6 +1,6 @@
 package src.main.model.company;
 
-public abstract class Trader {
+public class Trader {
     protected String name;
 
     public Trader(String name) {
