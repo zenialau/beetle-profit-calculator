@@ -51,11 +51,11 @@ public class GUISystem {
         try {
             buyers = buyersReader.read();
             suppliers = suppliersReader.read();
-            System.out.println("read buyers and suppliers map from data");
+//            System.out.println("read buyers and suppliers map from data");
         } catch (IOException e) {
             buyers = new BuyersMap();
             suppliers = new SuppliersMap();
-            System.out.println("constructed new buyers and suppliers map");
+//            System.out.println("constructed new buyers and suppliers map");
         }
     }
 

@@ -12,6 +12,7 @@ public class PanelsContainer {
     public final static String MAIN_PANEL = "mainPanel";
     public final static String BUYERS_PANEL = "buyersPanel";
     public final static String SUPPLIERS_PANEL = "suppliersPanel";
+    public final static String CALCULATOR_PANEL = "calculatorPanel";
 
     private GUISystem system;
 
@@ -21,6 +22,7 @@ public class PanelsContainer {
     private MainPanel mainPanel;
     private BuyersPanel buyersPanel;
     private SuppliersPanel suppliersPanel;
+    private CalculatorPanel calculatorPanel;
 
     // EFFECTS: set up container and panels
     public PanelsContainer(GUISystem system) {
@@ -46,6 +48,10 @@ public class PanelsContainer {
         container.add(suppliersPanel);
         cardLayout.addLayoutComponent(suppliersPanel, SUPPLIERS_PANEL);
 
+        setupCalculatorPanel();
+        container.add(calculatorPanel);
+        cardLayout.addLayoutComponent(calculatorPanel, CALCULATOR_PANEL);
+
     }
 
     // MODIFIES: this
@@ -66,6 +72,14 @@ public class PanelsContainer {
     private void setupSuppliersPanel() {
         suppliersPanel = new SuppliersPanel(this.system, container);
         system.getSuppliersMap().addObserver(suppliersPanel);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize and set up calculatorPanel
+    private void setupCalculatorPanel() {
+        calculatorPanel = new CalculatorPanel(this.system, container);
+        system.getBuyersMap().addObserver(calculatorPanel);
+        system.getSuppliersMap().addObserver(calculatorPanel);
     }
 
     public JPanel getContainer() {
