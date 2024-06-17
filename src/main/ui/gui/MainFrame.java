@@ -7,14 +7,12 @@ import src.main.persistence.JsonWriter;
 import src.main.persistence.SuppliersJsonReader;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // the main window frame of gui
-public class MainFrame implements ActionListener {
+public class MainFrame implements ActionListener, WindowListener {
     private static final int SCREEN_WIDTH = 900;
     private static final int SCREEN_HEIGHT = 600;
 
@@ -54,7 +52,9 @@ public class MainFrame implements ActionListener {
     private void setupFrame() {
         mainFrame = new JFrame();
         mainFrame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        mainFrame.addWindowListener(this);
         mainFrame.setLocationRelativeTo(null); // center of screen
         addMenuBar();
     }
@@ -143,4 +143,48 @@ public class MainFrame implements ActionListener {
     }
 
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        int result = JOptionPane.showConfirmDialog(null,
+                "Do you want to save?", "WARNING!!!", JOptionPane.YES_NO_CANCEL_OPTION);
+        switch (result) {
+            case 0:
+                saveData();
+            case 1:
+                mainFrame.dispose();
+                mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSED));
+            case 2:
+                break;
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // do nothing
+    }
 }
