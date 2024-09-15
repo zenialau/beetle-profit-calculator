@@ -29,18 +29,6 @@ public class Buyer extends Trader implements Writable {
     public int hashCode() {
         return Objects.hash(igAccount);
     }
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Buyer buyer = (Buyer) o;
-//        return Objects.equals(name, buyer.name) && Objects.equals(igAccount, buyer.igAccount);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(name, igAccount);
-//    }
 
     public String getIgAccount() {
         return igAccount;

@@ -52,7 +52,6 @@ public class MainFrame implements ActionListener, WindowListener {
     private void setupFrame() {
         mainFrame = new JFrame();
         mainFrame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-//        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mainFrame.addWindowListener(this);
         mainFrame.setLocationRelativeTo(null); // center of screen
@@ -108,14 +107,12 @@ public class MainFrame implements ActionListener, WindowListener {
         try {
             BuyersMap buyers = buyersReader.read();
             system.setBuyersMap(buyers);
-            System.out.println("loaded buyers data");
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + buyersStore);
         }
         try {
             SuppliersMap suppliers = suppliersReader.read();
             system.setSuppliersMap(suppliers);
-            System.out.println("loaded suppliers data");
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + suppliersStore);
         }
@@ -128,7 +125,6 @@ public class MainFrame implements ActionListener, WindowListener {
             buyersWriter.open();
             buyersWriter.write(system.getBuyersMap());
             buyersWriter.close();
-            System.out.println("saved buyers data");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + buyersStore);
         }
@@ -136,7 +132,6 @@ public class MainFrame implements ActionListener, WindowListener {
             suppliersWriter.open();
             suppliersWriter.write(system.getSuppliersMap());
             suppliersWriter.close();
-            System.out.println("saved suppliers data");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + suppliersStore);
         }
@@ -157,7 +152,6 @@ public class MainFrame implements ActionListener, WindowListener {
                 saveData();
             case 1:
                 mainFrame.dispose();
-                mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSED));
             case 2:
                 break;
         }

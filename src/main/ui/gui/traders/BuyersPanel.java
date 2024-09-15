@@ -15,7 +15,8 @@ import java.awt.event.ActionListener;
 
 import static src.main.ui.gui.PanelsContainer.MAIN_PANEL;
 
-// buyers screen that shows existing buyers and allow the option to add buyer or purchase, or go back to main menu
+// buyers screen that shows existing buyers and allow the option to add buyer or purchase,
+// or go back to main menu
 public class BuyersPanel extends TradersPanel implements BuyerObserver {
 
     // EFFECTS: constructs the buyers panel

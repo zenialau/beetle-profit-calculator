@@ -15,8 +15,8 @@ public class GUISystem {
     public static final Font TITLE_FONT = new Font("Serif", Font.PLAIN, 26);
     public static final Font PLAIN_18_FONT = new Font("Serif", Font.PLAIN, 18);
 
-    private static final String BUYERS_JSON_STORE = "./data/testGUIBuyers.json"; // "./data/buyers.json"
-    private static final String SUPPLIERS_JSON_STORE = "./data/testGUISuppliers.json"; //"./data/suppliers.json"
+    private static final String BUYERS_JSON_STORE = "./data/customers.json";
+    private static final String SUPPLIERS_JSON_STORE = "./data/suppliers.json";
 
     private BuyersMap buyers;
     private SuppliersMap suppliers;
@@ -51,11 +51,9 @@ public class GUISystem {
         try {
             buyers = buyersReader.read();
             suppliers = suppliersReader.read();
-//            System.out.println("read buyers and suppliers map from data");
         } catch (IOException e) {
             buyers = new BuyersMap();
             suppliers = new SuppliersMap();
-//            System.out.println("constructed new buyers and suppliers map");
         }
     }
 
@@ -98,11 +96,5 @@ public class GUISystem {
     public JsonWriter getSuppliersWriter() {
         return suppliersWriter;
     }
-
-
-
-
-
-
 
 }

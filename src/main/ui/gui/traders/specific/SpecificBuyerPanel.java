@@ -54,7 +54,6 @@ public class SpecificBuyerPanel extends GenericSpecificPanel implements ActionLi
             cardLayout.show(container, BUYERS_PANEL);
         }
         else if (e.getSource() == addPurchaseButton) {
-//            new AddPurchaseWindow(system, buyer); // trader
             new AddPurchaseWindowGeneral(system, buyer, "b");
         }
     }

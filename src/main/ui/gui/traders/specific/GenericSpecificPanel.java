@@ -161,7 +161,6 @@ public class GenericSpecificPanel extends JPanel {
     // EFFECTS: set up addPurchaseButton
     protected void setupAddPurchaseButton() {
         addPurchaseButton = new JButton("Add Purchase");
-//        addPurchaseButton.addActionListener(this);
     }
 
     // MODIFIES: this
@@ -172,8 +171,4 @@ public class GenericSpecificPanel extends JPanel {
         this.add(buttonPanel, BorderLayout.PAGE_END);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        new AddPurchaseWindow(system, buyer);
-//    }
 }

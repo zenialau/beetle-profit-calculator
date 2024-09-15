@@ -67,12 +67,9 @@ public class AddBuyerWindow extends AddTraderWindow implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             addBuyer();
-            System.out.println("Buyer successfully added.");
         } catch (DuplicateException ex) {
-            System.out.println("Buyer already exists.");
             duplicateTraderLabel.setVisible(true);
         } catch (InvalidTraderException ex) {
-            System.out.println("nameField is empty.");
             nameField.setBorder(BorderFactory.createLineBorder(Color.RED)); // set nameField border to red
         }
     }
