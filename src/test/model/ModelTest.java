@@ -14,7 +14,7 @@ public abstract class ModelTest {
     protected Purchase testPurchase2;
     protected InventoryItem i1;
     protected InventoryItem i2;
-    protected Buyer testBuyer1;
+    protected Customer testCustomer1;
     protected Supplier testSupplier1;
 
     @BeforeEach
@@ -26,7 +26,7 @@ public abstract class ModelTest {
                 "A1", "", 50);
         i2 = new InventoryItem("container", "", 0,
                 "", "10 containers", 10);
-        testBuyer1 = new Buyer("Zenia", "_zenialau_", "Coquitlam");
+        testCustomer1 = new Customer("Zenia", "_zenialau_", "Coquitlam");
         testSupplier1 = new Supplier("Nigel", "Canada");
     }
 }

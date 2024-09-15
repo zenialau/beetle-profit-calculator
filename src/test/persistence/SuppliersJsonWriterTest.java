@@ -1,7 +1,7 @@
 package src.test.persistence;
 
 import org.junit.jupiter.api.Test;
-import src.main.model.company.BuyersMap;
+import src.main.model.company.CustomersMap;
 import src.main.model.company.Supplier;
 import src.main.model.company.SuppliersMap;
 import src.main.model.exception.DuplicateException;
@@ -20,7 +20,7 @@ public class SuppliersJsonWriterTest extends JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            BuyersMap bm = new BuyersMap();
+            CustomersMap bm = new CustomersMap();
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileNmae.json");
             writer.open();
             fail("IOException was expected.");

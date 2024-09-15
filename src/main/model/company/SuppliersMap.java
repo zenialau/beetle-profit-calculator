@@ -15,14 +15,14 @@ import java.util.Set;
 public class SuppliersMap extends TradersMap implements Iterable<Supplier> {
     private Map<Supplier, PurchaseList> suppliersMap;
 
-    // EFFECTS: constructs an empty map of buyers
+    // EFFECTS: constructs an empty map of customers
     public SuppliersMap() {
         suppliersMap = new HashMap<>();
     }
 
     // MODIFIES: this
     // EFFECTS: if buyer already exists in the map, throw DuplicateException
-    //          else add buyer to buyersMap
+    //          else add buyer to customersMap
     public void addSupplier(Supplier supplier) throws DuplicateException {
         if (getListOfSuppliers().contains(supplier)) {
             throw new DuplicateException();
@@ -54,7 +54,7 @@ public class SuppliersMap extends TradersMap implements Iterable<Supplier> {
         return getPurchaseList(supplier).getAmountPurchased();
     }
 
-    // EFFECTS: return the total amount earned all buyers in Map
+    // EFFECTS: return the total amount earned all customers in Map
     public double getTotalExpense() {
         double total = 0;
         for (Supplier supplier : getListOfSuppliers()) {

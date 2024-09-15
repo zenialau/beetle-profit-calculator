@@ -47,7 +47,7 @@ public class SuppliersPanel extends TradersPanel implements SupplierObserver { /
         makeSupplierPanel(s);
         setActionListener(s, supplierButton);
         tradersContainer.add(supplierButton);
-        tradersContainerHeight += BUYERS_BUTTON_HEIGHT;
+        tradersContainerHeight += CUSTOMERS_BUTTON_HEIGHT;
         tradersContainer.setPreferredSize(new Dimension(CONTAINER_WIDTH, tradersContainerHeight));
     }
 

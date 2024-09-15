@@ -3,14 +3,14 @@ package src.test.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.main.model.ProfitCalculator;
-import src.main.model.company.BuyersMap;
+import src.main.model.company.CustomersMap;
 import src.main.model.company.SuppliersMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProfitCalculatorTest extends ModelTest{
     ProfitCalculator testCalculator;
-    BuyersMap buyers;
+    CustomersMap customers;
     SuppliersMap suppliers;
 
     @BeforeEach
@@ -18,13 +18,13 @@ public class ProfitCalculatorTest extends ModelTest{
         testPurchase1.addItem(i1);
         testPurchase1.addItem(i2);
 
-        buyers = new BuyersMap();
+        customers = new CustomersMap();
         try {
-            buyers.addBuyer(testBuyer1);
+            customers.addBuyer(testCustomer1);
         } catch (Exception e) {
             fail("Exception not expected.");
         }
-        buyers.addPurchase(testBuyer1, testPurchase1);
+        customers.addPurchase(testCustomer1, testPurchase1);
 
         suppliers = new SuppliersMap();
         try {
@@ -34,7 +34,7 @@ public class ProfitCalculatorTest extends ModelTest{
         }
         suppliers.addPurchase(testSupplier1, testPurchase1);
 
-        testCalculator = new ProfitCalculator(buyers, suppliers);
+        testCalculator = new ProfitCalculator(customers, suppliers);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ProfitCalculatorTest extends ModelTest{
     }
     @Test
     void testGetProfitGeneral() {
-        buyers.addPurchase(testBuyer1, testPurchase1);
+        customers.addPurchase(testCustomer1, testPurchase1);
         testCalculator.update();
         assertEquals(60, testCalculator.getProfit());
     }

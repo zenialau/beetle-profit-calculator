@@ -6,12 +6,12 @@ import src.main.persistence.Writable;
 import java.util.Objects;
 
 // Represent a buyer with name, instagram account and address
-public class Buyer extends Trader implements Writable {
+public class Customer extends Trader implements Writable {
     private String igAccount;
     private String address;
 
     // Constructs a buyer with their name, Instagram account, and an empty list of purchases
-    public Buyer(String name, String igAccount, String address) {
+    public Customer(String name, String igAccount, String address) {
         super(name);
         this.igAccount = igAccount;
         this.address = address;
@@ -21,8 +21,8 @@ public class Buyer extends Trader implements Writable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Buyer buyer = (Buyer) o;
-        return Objects.equals(igAccount, buyer.igAccount);
+        Customer customer = (Customer) o;
+        return Objects.equals(igAccount, customer.igAccount);
     }
 
     @Override

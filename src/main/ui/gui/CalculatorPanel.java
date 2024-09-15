@@ -28,7 +28,7 @@ public class CalculatorPanel extends JPanel implements ActionListener, PurchaseO
         this.cardLayout = (CardLayout) container.getLayout();
         this.setLayout(new BorderLayout());
 
-        calc = new ProfitCalculator(system.getBuyersMap(), system.getSuppliersMap());
+        calc = new ProfitCalculator(system.getCustomersMap(), system.getSuppliersMap());
         calc.update();
 
         setupTitle();

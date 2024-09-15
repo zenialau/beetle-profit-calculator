@@ -1,7 +1,7 @@
 package src.main.ui.gui.traders.window;
 
-import src.main.model.company.Buyer;
-import src.main.model.company.BuyersMap;
+import src.main.model.company.Customer;
+import src.main.model.company.CustomersMap;
 import src.main.model.exception.DuplicateException;
 import src.main.model.exception.InvalidTraderException;
 import src.main.ui.gui.GUISystem;
@@ -74,18 +74,18 @@ public class AddBuyerWindow extends AddTraderWindow implements ActionListener {
         }
     }
 
-    // MODIFIES: this.system.buyers
+    // MODIFIES: this.system.customers
     // EFFECTS: if buyer already exist or the nameField is empty, notify the user
-    //          else add buyer to BuyersMap
+    //          else add customer to CustomersMap
     private void addBuyer() throws DuplicateException, InvalidTraderException {
-        Buyer newBuyer = new Buyer(nameField.getText(), igField.getText(), addressField.getText());
+        Customer newCustomer = new Customer(nameField.getText(), igField.getText(), addressField.getText());
 
-        BuyersMap buyers = system.getBuyersMap();
+        CustomersMap customers = system.getCustomersMap();
 
         if (nameField.getText().isBlank()) {
             throw new InvalidTraderException();
         } else {
-            buyers.addBuyer(newBuyer);
+            customers.addBuyer(newCustomer);
             frame.dispose();
         }
     }

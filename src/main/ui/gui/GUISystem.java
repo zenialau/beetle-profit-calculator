@@ -1,29 +1,29 @@
 package src.main.ui.gui;
 
-import src.main.model.company.BuyersMap;
+import src.main.model.company.CustomersMap;
 import src.main.model.company.SuppliersMap;
-import src.main.persistence.BuyersJsonReader;
+import src.main.persistence.CustomersJsonReader;
 import src.main.persistence.JsonWriter;
 import src.main.persistence.SuppliersJsonReader;
 
 import java.awt.*;
 import java.io.IOException;
 
-// gui system that keep track of buyers and suppliers in the background
+// gui system that keep track of customers and suppliers in the background
 public class GUISystem {
 
     public static final Font TITLE_FONT = new Font("Serif", Font.PLAIN, 26);
     public static final Font PLAIN_18_FONT = new Font("Serif", Font.PLAIN, 18);
 
-    private static final String BUYERS_JSON_STORE = "./data/customers.json";
+    private static final String CUSTOMERS_JSON_STORE = "./data/customers.json";
     private static final String SUPPLIERS_JSON_STORE = "./data/suppliers.json";
 
-    private BuyersMap buyers;
+    private CustomersMap customers;
     private SuppliersMap suppliers;
 
-    private BuyersJsonReader buyersReader;
+    private CustomersJsonReader customersReader;
     private SuppliersJsonReader suppliersReader;
-    private JsonWriter buyersWriter;
+    private JsonWriter customersWriter;
     private JsonWriter suppliersWriter;
 
     private MainFrame mainFrame;
@@ -37,32 +37,32 @@ public class GUISystem {
 
     // MODIFIES: this
     // EFFECTS: initialize JsonReader & JsonWriter,
-    //          read previously saved data, or initialize new BuyersMap and SuppliersMap
+    //          read previously saved data, or initialize new CustomersMap and SuppliersMap
     private void initPersistence() {
-        buyersReader = new BuyersJsonReader(BUYERS_JSON_STORE);
+        customersReader = new CustomersJsonReader(CUSTOMERS_JSON_STORE);
         suppliersReader = new SuppliersJsonReader(SUPPLIERS_JSON_STORE);
-        buyersWriter = new JsonWriter(BUYERS_JSON_STORE);
+        customersWriter = new JsonWriter(CUSTOMERS_JSON_STORE);
         suppliersWriter = new JsonWriter(SUPPLIERS_JSON_STORE);
     }
 
     // MODIFIES: this
-    // EFFECTS: read previously saved data, or initialize new BuyersMap and SuppliersMap
+    // EFFECTS: read previously saved data, or initialize new CustomersMap and SuppliersMap
     private void initData() {
         try {
-            buyers = buyersReader.read();
+            customers = customersReader.read();
             suppliers = suppliersReader.read();
         } catch (IOException e) {
-            buyers = new BuyersMap();
+            customers = new CustomersMap();
             suppliers = new SuppliersMap();
         }
     }
 
-    public BuyersMap getBuyersMap() {
-        return buyers;
+    public CustomersMap getCustomersMap() {
+        return customers;
     }
 
-    public void setBuyersMap(BuyersMap buyers) {
-        this.buyers = buyers;
+    public void setCustomersMap(CustomersMap customers) {
+        this.customers = customers;
     }
 
     public SuppliersMap getSuppliersMap() {
@@ -73,24 +73,24 @@ public class GUISystem {
         this.suppliers = suppliers;
     }
 
-    public String getBuyersJsonStore() {
-        return BUYERS_JSON_STORE;
+    public String getCustomersJsonStore() {
+        return CUSTOMERS_JSON_STORE;
     }
 
     public String getSuppliersJsonStore() {
         return SUPPLIERS_JSON_STORE;
     }
 
-    public BuyersJsonReader getBuyersReader() {
-        return buyersReader;
+    public CustomersJsonReader getCustomersReader() {
+        return customersReader;
     }
 
     public SuppliersJsonReader getSuppliersReader() {
         return suppliersReader;
     }
 
-    public JsonWriter getBuyersWriter() {
-        return buyersWriter;
+    public JsonWriter getCustomersWriter() {
+        return customersWriter;
     }
 
     public JsonWriter getSuppliersWriter() {

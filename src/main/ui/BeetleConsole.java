@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class BeetleConsole {
     private Scanner input;
-    private BuyersMap buyers;
+    private CustomersMap customers;
     private SuppliersMap suppliers;
     private ProfitCalculator calc;
 
@@ -119,8 +119,8 @@ public class BeetleConsole {
     private void displayTradersMenu(String t) {
         String trader = "";
         if (t.equals("buyer")) {
-            for (Buyer buyer : buyers.getListOfBuyers()) {
-                System.out.println(buyer.getName());
+            for (Customer customer : customers.getListOfCustomers()) {
+                System.out.println(customer.getName());
             }
             trader = "buyer";
         } else if (t.equals("supplier")) {
@@ -135,14 +135,14 @@ public class BeetleConsole {
         System.out.println("Quit > q");
     }
 
-    // REQUIRES: no buyers have the same name
+    // REQUIRES: no customers have the same name
     private void processBuyersCommand(String command) {
         if (command.equals("a")) {
             addBuyerMenu();
         }
-        for (Buyer buyer : buyers.getListOfBuyers()) {
-            if (buyer.getName().toLowerCase().equals(command)) {
-                viewBuyerMenu(buyer);
+        for (Customer customer : customers.getListOfCustomers()) {
+            if (customer.getName().toLowerCase().equals(command)) {
+                viewBuyerMenu(customer);
             }
         }
     }
@@ -166,9 +166,9 @@ public class BeetleConsole {
         String igAccount = input.next();
         System.out.println("Address: ");
         String address = input.next();
-        Buyer buyer = new Buyer(name, igAccount, address);
+        Customer customer = new Customer(name, igAccount, address);
         try {
-            buyers.addBuyer(buyer);
+            customers.addBuyer(customer);
         } catch (DuplicateException e) {
             System.out.println("Buyer already exist!");
         }
@@ -187,8 +187,8 @@ public class BeetleConsole {
         }
     }
 
-    private void viewBuyerMenu(Buyer buyer) {
-        generalFormatMenu("viewTraderMenu", buyer, null);
+    private void viewBuyerMenu(Customer customer) {
+        generalFormatMenu("viewTraderMenu", customer, null);
     }
 
     private void viewSupplierMenu(Supplier supplier) {
@@ -197,8 +197,8 @@ public class BeetleConsole {
 
     private void displayViewTraderMenu(Trader trader) {
         String t = "";
-        if (trader instanceof Buyer) {
-            printPurchaseList(buyers, trader);
+        if (trader instanceof Customer) {
+            printPurchaseList(customers, trader);
             t = "buyer";
         } else if (trader instanceof Supplier) {
             printPurchaseList(suppliers, trader);
@@ -231,8 +231,8 @@ public class BeetleConsole {
         String date = input.next();
         purchase.setPurchaseDate(date);
         generalFormatMenu("addPurchaseMenu", trader, purchase);
-        if (trader instanceof Buyer) {
-            buyers.getPurchaseList((Buyer) trader).addPurchase(purchase);
+        if (trader instanceof Customer) {
+            customers.getPurchaseList((Customer) trader).addPurchase(purchase);
         } else if (trader instanceof Supplier) {
             suppliers.getPurchaseList((Supplier) trader).addPurchase(purchase);
         }
@@ -284,9 +284,9 @@ public class BeetleConsole {
 
     private void init() {
         input = new Scanner(System.in);
-        buyers = new BuyersMap();
+        customers = new CustomersMap();
         suppliers = new SuppliersMap();
-        calc = new ProfitCalculator(buyers, suppliers);
+        calc = new ProfitCalculator(customers, suppliers);
     }
 
 }

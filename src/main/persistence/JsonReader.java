@@ -37,7 +37,7 @@ public abstract class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses BuyersMap from JSONObject and returns it
+    // EFFECTS: parses CustomersMap from JSONObject and returns it
     protected abstract TradersMap parseMap(JSONObject jsonObject);
 
     // EFFECTS: parses Purchase(s) from JSON object and returns it

@@ -1,8 +1,8 @@
 package src.main.ui.gui;
 
-import src.main.model.company.BuyersMap;
+import src.main.model.company.CustomersMap;
 import src.main.model.company.SuppliersMap;
-import src.main.persistence.BuyersJsonReader;
+import src.main.persistence.CustomersJsonReader;
 import src.main.persistence.JsonWriter;
 import src.main.persistence.SuppliersJsonReader;
 
@@ -16,14 +16,14 @@ public class MainFrame implements ActionListener, WindowListener {
     private static final int SCREEN_WIDTH = 900;
     private static final int SCREEN_HEIGHT = 600;
 
-    private String buyersStore;
+    private String customersStore;
     private String suppliersStore;
 
     private GUISystem system;
 
-    private BuyersJsonReader buyersReader;
+    private CustomersJsonReader customersReader;
     private SuppliersJsonReader suppliersReader;
-    private JsonWriter buyersWriter;
+    private JsonWriter customersWriter;
     private JsonWriter suppliersWriter;
 
     private JFrame mainFrame;
@@ -81,14 +81,14 @@ public class MainFrame implements ActionListener, WindowListener {
 
     // MODIFIES: this
     // EFFECTS: initialize JsonReader & JsonWriter,
-    //          read previously saved data, or initialize new BuyersMap and SuppliersMap
+    //          read previously saved data, or initialize new CustomersMap and SuppliersMap
     private void initPersistence() {
-        buyersStore = system.getBuyersJsonStore();
+        customersStore = system.getCustomersJsonStore();
         suppliersStore = system.getSuppliersJsonStore();
 
-        buyersReader = system.getBuyersReader();
+        customersReader = system.getCustomersReader();
         suppliersReader = system.getSuppliersReader();
-        buyersWriter = system.getBuyersWriter();
+        customersWriter = system.getCustomersWriter();
         suppliersWriter = system.getSuppliersWriter();
     }
 
@@ -102,13 +102,13 @@ public class MainFrame implements ActionListener, WindowListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: load BuyersMap and SuppliersMap data into application
+    // EFFECTS: load CustomersMap and SuppliersMap data into application
     protected void loadData() {
         try {
-            BuyersMap buyers = buyersReader.read();
-            system.setBuyersMap(buyers);
+            CustomersMap customers = customersReader.read();
+            system.setCustomersMap(customers);
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + buyersStore);
+            System.out.println("Unable to read from file: " + customersStore);
         }
         try {
             SuppliersMap suppliers = suppliersReader.read();
@@ -119,14 +119,14 @@ public class MainFrame implements ActionListener, WindowListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: save BuyersMap and SuppliersMap data into file
+    // EFFECTS: save CustomersMap and SuppliersMap data into file
     protected void saveData() {
         try {
-            buyersWriter.open();
-            buyersWriter.write(system.getBuyersMap());
-            buyersWriter.close();
+            customersWriter.open();
+            customersWriter.write(system.getCustomersMap());
+            customersWriter.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + buyersStore);
+            System.out.println("Unable to write to file: " + customersStore);
         }
         try {
             suppliersWriter.open();

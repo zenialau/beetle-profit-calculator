@@ -1,6 +1,6 @@
 package src.main.ui.gui;
 
-import src.main.ui.gui.traders.BuyersPanel;
+import src.main.ui.gui.traders.CustomersPanel;
 import src.main.ui.gui.traders.SuppliersPanel;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 public class PanelsContainer {
 
     public final static String MAIN_PANEL = "mainPanel";
-    public final static String BUYERS_PANEL = "buyersPanel";
+    public final static String CUSTOMERS_PANEL = "customersPanel";
     public final static String SUPPLIERS_PANEL = "suppliersPanel";
     public final static String CALCULATOR_PANEL = "calculatorPanel";
 
@@ -20,7 +20,7 @@ public class PanelsContainer {
     private CardLayout cardLayout;
 
     private MainPanel mainPanel;
-    private BuyersPanel buyersPanel;
+    private CustomersPanel customersPanel;
     private SuppliersPanel suppliersPanel;
     private CalculatorPanel calculatorPanel;
 
@@ -40,9 +40,9 @@ public class PanelsContainer {
         container.add(mainPanel);
         cardLayout.addLayoutComponent(mainPanel, MAIN_PANEL);
 
-        setupBuyersPanel();
-        container.add(buyersPanel);
-        cardLayout.addLayoutComponent(buyersPanel, BUYERS_PANEL);
+        setupCustomersPanel();
+        container.add(customersPanel);
+        cardLayout.addLayoutComponent(customersPanel, CUSTOMERS_PANEL);
 
         setupSuppliersPanel();
         container.add(suppliersPanel);
@@ -61,10 +61,10 @@ public class PanelsContainer {
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize and set up buyersPanel
-    private void setupBuyersPanel() {
-        buyersPanel = new BuyersPanel(this.system, container);
-        system.getBuyersMap().addObserver(buyersPanel);
+    // EFFECTS: initialize and set up customersPanel
+    private void setupCustomersPanel() {
+        customersPanel = new CustomersPanel(this.system, container);
+        system.getCustomersMap().addObserver(customersPanel);
     }
 
     // MODIFIES: this
@@ -78,7 +78,7 @@ public class PanelsContainer {
     // EFFECTS: initialize and set up calculatorPanel
     private void setupCalculatorPanel() {
         calculatorPanel = new CalculatorPanel(this.system, container);
-        system.getBuyersMap().addObserver(calculatorPanel);
+        system.getCustomersMap().addObserver(calculatorPanel);
         system.getSuppliersMap().addObserver(calculatorPanel);
     }
 

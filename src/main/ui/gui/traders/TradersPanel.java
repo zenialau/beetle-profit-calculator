@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-// abstract parent class of BuyersPanel and SuppliersPanel
+// abstract parent class of CustomersPanel and SuppliersPanel
 public abstract class TradersPanel extends JPanel implements ActionListener {
 
     protected static final float CENTER = 0.5F;
-    protected static final int BUYERS_BUTTON_HEIGHT = 50;
+    protected static final int CUSTOMERS_BUTTON_HEIGHT = 50;
     protected static final int BUTTON_WIDTH = 700;
     protected static final int CONTAINER_WIDTH = 650;
 
@@ -29,7 +29,7 @@ public abstract class TradersPanel extends JPanel implements ActionListener {
     protected JButton backButton;
     protected JButton addTraderButton;
 
-    // EFFECTS: constructs the buyers panel
+    // EFFECTS: constructs the customers panel
     public TradersPanel(GUISystem system, JPanel container) {
         this.system = system;
         this.container = container;
@@ -38,7 +38,7 @@ public abstract class TradersPanel extends JPanel implements ActionListener {
     }
 
     protected void setButtonDimensions(JButton button) {
-        button.setMaximumSize(new Dimension(BUTTON_WIDTH, BUYERS_BUTTON_HEIGHT));
+        button.setMaximumSize(new Dimension(BUTTON_WIDTH, CUSTOMERS_BUTTON_HEIGHT));
     }
 
     // MODIFIES: this
@@ -59,7 +59,7 @@ public abstract class TradersPanel extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: add a scroll pane containing buttons of buyers
+    // EFFECTS: add a scroll pane containing buttons of customers
     protected void addScrollPane() {
         tradersContainer = new JPanel();
         tradersContainer.setBackground(Color.lightGray);

@@ -15,7 +15,7 @@ public class MainPanel extends JPanel implements ActionListener {
     private JPanel container;
 
     private JLabel titleLabel;
-    private JButton buyersButton;
+    private JButton customersButton;
     private JButton suppliersButton;
     private JButton calculatorButton;
 
@@ -52,31 +52,31 @@ public class MainPanel extends JPanel implements ActionListener {
     private void addButtons() {
         Dimension maxDimension = new Dimension(300, 60);
 
-        buyersButton = new JButton("Buyers");
+        customersButton = new JButton("Customers");
         suppliersButton = new JButton("Suppliers");
         calculatorButton = new JButton("Profit Calculator");
 
-        buyersButton.setFont(PLAIN_18_FONT);
+        customersButton.setFont(PLAIN_18_FONT);
         suppliersButton.setFont(PLAIN_18_FONT);
         calculatorButton.setFont(PLAIN_18_FONT);
 
-        buyersButton.setMaximumSize(maxDimension);
+        customersButton.setMaximumSize(maxDimension);
         suppliersButton.setMaximumSize(maxDimension);
         calculatorButton.setMaximumSize(maxDimension);
 
-        buyersButton.setAlignmentX(CENTER);
+        customersButton.setAlignmentX(CENTER);
         suppliersButton.setAlignmentX(CENTER);
         calculatorButton.setAlignmentX(CENTER);
 
-        buyersButton.setFocusPainted(false);
+        customersButton.setFocusPainted(false);
         suppliersButton.setFocusPainted(false);
         calculatorButton.setFocusPainted(false);
 
-        buyersButton.addActionListener(this);
+        customersButton.addActionListener(this);
         suppliersButton.addActionListener(this);
         calculatorButton.addActionListener(this);
 
-        this.add(buyersButton);
+        this.add(customersButton);
         this.add(suppliersButton);
         this.add(calculatorButton);
     }
@@ -84,8 +84,8 @@ public class MainPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CardLayout layout = (CardLayout) container.getLayout();
-        if (e.getSource() == buyersButton) {
-            layout.show(container, BUYERS_PANEL);
+        if (e.getSource() == customersButton) {
+            layout.show(container, CUSTOMERS_PANEL);
         } else if (e.getSource() == suppliersButton) {
             layout.show(container, SUPPLIERS_PANEL);
         } else if (e.getSource() == calculatorButton) {

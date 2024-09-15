@@ -1,7 +1,5 @@
 package src.main.ui.gui.traders.specific;
 
-import src.main.model.company.Buyer;
-import src.main.model.company.BuyersMap;
 import src.main.model.company.Trader;
 import src.main.model.company.TradersMap;
 import src.main.model.exception.InvalidItemException;
@@ -196,7 +194,7 @@ public class AddPurchaseWindowGeneral implements ActionListener {
      // EFFECTS: parse the user inputted data into a purchase and add it to the corresponding buyer (this.buyer)
      private void addPurchase() throws DateTimeParseException,InvalidItemException, NoItemException {
           TradersMap tm;
-          if (type == "b") tm = system.getBuyersMap();
+          if (type == "b") tm = system.getCustomersMap();
           else tm = system.getSuppliersMap();
           Purchase purchase = new Purchase();
 

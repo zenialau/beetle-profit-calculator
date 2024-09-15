@@ -1,6 +1,6 @@
 package src.main.ui.gui.traders.specific;
 
-import src.main.model.company.Buyer;
+import src.main.model.company.Customer;
 import src.main.model.oberver.PurchaseObserver;
 import src.main.ui.gui.GUISystem;
 
@@ -8,16 +8,16 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static src.main.ui.gui.PanelsContainer.BUYERS_PANEL;
+import static src.main.ui.gui.PanelsContainer.CUSTOMERS_PANEL;
 
 public class SpecificBuyerPanel extends GenericSpecificPanel implements ActionListener, PurchaseObserver {
 
-    private Buyer buyer;
+    private Customer customer;
 
-    public SpecificBuyerPanel(GUISystem system, JPanel container, Buyer buyer) {
+    public SpecificBuyerPanel(GUISystem system, JPanel container, Customer customer) {
         super(system, container);
-        this.buyer = buyer;
-        this.purchaseList = system.getBuyersMap().getPurchaseList(buyer);
+        this.customer = customer;
+        this.purchaseList = system.getCustomersMap().getPurchaseList(customer);
 
         addTitle();
         addSpace();
@@ -43,7 +43,7 @@ public class SpecificBuyerPanel extends GenericSpecificPanel implements ActionLi
     // MODIFIES: this
     // EFFECTS: add title label to this panel
     private void addTitle() {
-        titleLabel = new JLabel("   " + buyer.getName() + " [ " + buyer.getIgAccount() + " ] : " + buyer.getAddress());
+        titleLabel = new JLabel("   " + customer.getName() + " [ " + customer.getIgAccount() + " ] : " + customer.getAddress());
         setupTitle(titleLabel);
     }
 
@@ -51,10 +51,10 @@ public class SpecificBuyerPanel extends GenericSpecificPanel implements ActionLi
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == backButton) {
-            cardLayout.show(container, BUYERS_PANEL);
+            cardLayout.show(container, CUSTOMERS_PANEL);
         }
         else if (e.getSource() == addPurchaseButton) {
-            new AddPurchaseWindowGeneral(system, buyer, "b");
+            new AddPurchaseWindowGeneral(system, customer, "b");
         }
     }
 

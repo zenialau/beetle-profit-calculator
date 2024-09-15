@@ -4,7 +4,7 @@ Application to help Hadrian easily calculate
 his profits from selling Mounted Displays.
 
 User Stories:
-- record buyer info
+- record customer info
 (name, ig account, bought items + price, 
 times bong can)
 - record supplier info
